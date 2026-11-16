@@ -28,6 +28,16 @@ Features:
 - print styles for individual entries
 - no frameworks, no external fonts, no build step
 
+## Motion studies
+
+The first entry with animation studies is **Boehme, Jacob** — a natural test case because the text contains a famous scene, a cosmological system and an alchemical triptych:
+
+- **I. The Pewter Gleam** — an SVG woodcut of the Görlitz workshop, with the 1600 vision drawn as a radiant “center of nature”.
+- **II. Aurora** — a Canvas 2D heliocentric diagram: seven source-spirits, orbital motion, and a Trinitarian triangle.
+- **III. Three Principles** — an interactive alchemical triptych of the dark fire world, the earthly world and the light world.
+
+Open [`motion/boehme/`](motion/boehme/) or follow the **Motion study** link on the Boehme entry.
+
 ## Run it
 
 Open `index.html` directly in a browser. The data is loaded with a normal `<script>` tag, so it also works from `file://`.

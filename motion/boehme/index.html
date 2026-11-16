@@ -1,0 +1,559 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Boehme, Jacob — Motion Studies</title>
+<meta name="description" content="Three animated studies for the entry on Jacob Boehme: a woodcut vision, an Aurora cosmological diagram, and a Three Principles triptych.">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="motion.css">
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="topbar">
+  <a class="back" href="../../index.html">
+    <span class="back-arrow">←</span>
+    <span>Dictionary</span>
+  </a>
+  <span class="topbar-rule"></span>
+  <span class="topbar-label">Motion studies · 01</span>
+  <a class="topbar-entry" href="../../index.html#/entry/boehme-jacob">Boehme, Jacob</a>
+</header>
+
+<main class="shell">
+
+  <section class="hero">
+    <p class="eyebrow">Motion studies · Jacob Boehme</p>
+    <h1>Boehme,<br><em>Jacob</em></h1>
+    <p class="dates">Görlitz · 1575–1624</p>
+    <p class="lede">Three ways of animating one entry. The shoemaker’s vision of 1600, the heliocentric <em>Aurora</em> of 1612, and the dark–light triptych of <em>The Three Principles</em> of 1618. Each study uses a different visual language: woodcut line-drawing, a copperplate cosmological diagram, and an alchemical emblem.</p>
+    <blockquote class="hero-quote">
+      “the gleam of light … in a tin or pewter vessel gave him the impression of looking into a concealed ‘center of nature’”
+      <cite>— the entry, on the experience of 1600</cite>
+    </blockquote>
+    <nav class="study-nav" aria-label="Studies">
+      <a href="#pewter"><span>I</span> The Pewter Gleam</a>
+      <a href="#aurora"><span>II</span> Aurora</a>
+      <a href="#principles"><span>III</span> Three Principles</a>
+    </nav>
+  </section>
+
+  <!-- ============================================================
+       I. THE PEWTER GLEAM
+       ============================================================ -->
+  <section class="study" id="pewter">
+    <header class="study-head">
+      <div class="study-title">
+        <span class="numeral">I</span>
+        <div>
+          <h2>The Pewter Gleam</h2>
+          <p>Görlitz, 1600 · SVG woodcut, line-drawing</p>
+        </div>
+      </div>
+      <p class="medium">SVG · stroke animation · paper grain</p>
+    </header>
+
+    <div class="stage-wrap">
+      <div class="stage woodcut-stage is-playing" id="woodcutStage">
+        <svg class="woodcut" viewBox="0 0 1200 720" role="img" aria-label="A woodcut-style emblem of a shoemaker's workshop in Görlitz, 1600. Inside a circular plate, light falls from a leaded window onto a pewter vessel and opens into a radiant rose of the center of nature.">
+          <defs>
+            <filter id="paper-grain" x="0" y="0" width="100%" height="100%">
+              <feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="3" seed="12" result="noise"/>
+              <feColorMatrix in="noise" type="saturate" values="0"/>
+              <feComponentTransfer><feFuncA type="linear" slope=".16"/></feComponentTransfer>
+            </filter>
+            <filter id="wobble" x="-2%" y="-2%" width="104%" height="104%">
+              <feTurbulence type="fractalNoise" baseFrequency=".012" numOctaves="2" seed="4" result="n"/>
+              <feDisplacementMap in="SourceGraphic" in2="n" scale="2.1" xChannelSelector="R" yChannelSelector="G"/>
+            </filter>
+            <pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(34)">
+              <line x1="0" y1="0" x2="0" y2="7" stroke="#241c15" stroke-width=".65" opacity=".8"/>
+            </pattern>
+            <pattern id="hatch2" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(-28)">
+              <line x1="0" y1="0" x2="0" y2="5" stroke="#241c15" stroke-width=".55" opacity=".65"/>
+            </pattern>
+            <linearGradient id="beamGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#f3cf82" stop-opacity=".7"/>
+              <stop offset="1" stop-color="#f3cf82" stop-opacity="0"/>
+            </linearGradient>
+            <radialGradient id="visionGrad" cx="50%" cy="50%" r="50%">
+              <stop offset="0" stop-color="#f7e6b4" stop-opacity=".85"/>
+              <stop offset=".42" stop-color="#e3b85f" stop-opacity=".25"/>
+              <stop offset="1" stop-color="#e3b85f" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="visionFade" cx="50%" cy="50%" r="50%">
+              <stop offset="0" stop-color="#fff"/>
+              <stop offset=".68" stop-color="#fff"/>
+              <stop offset="1" stop-color="#000"/>
+            </radialGradient>
+            <clipPath id="emblemClip"><circle cx="600" cy="380" r="285"/></clipPath>
+            <mask id="visionMask"><circle cx="600" cy="380" r="285" fill="url(#visionFade)"/></mask>
+          </defs>
+
+          <rect width="1200" height="720" fill="#efe3cc"/>
+          <rect width="1200" height="720" filter="url(#paper-grain)" opacity=".55" style="mix-blend-mode:multiply"/>
+
+          <!-- plate frame and title -->
+          <g class="ink" fill="none" stroke="#241c15" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path class="draw" pathLength="1" style="--d:.05s" d="M30 30H1170V690H30Z"/>
+            <path class="draw" pathLength="1" style="--d:.1s" d="M42 42H1158V678H42Z"/>
+            <path class="draw" pathLength="1" style="--d:.18s" d="M42 88H300M900 88H1158"/>
+            <path class="draw" pathLength="1" style="--d:.82s" d="M42 654H300M900 654H1158"/>
+          </g>
+          <text x="600" y="58" text-anchor="middle" class="plate-title">THE PEWTER GLEAM</text>
+          <text x="600" y="76" text-anchor="middle" class="plate-sub">GÖRLITZ · 1600</text>
+
+          <!-- circular scene -->
+          <g clip-path="url(#emblemClip)">
+            <rect x="315" y="95" width="570" height="570" fill="#e8d7ba" opacity=".42"/>
+            <rect x="315" y="95" width="570" height="570" fill="url(#hatch2)" opacity=".17"/>
+            <rect x="315" y="578" width="570" height="87" fill="url(#hatch)" opacity=".24"/>
+            <ellipse cx="650" cy="642" rx="235" ry="20" fill="url(#hatch)" opacity=".22"/>
+
+            <g class="ink" fill="none" stroke="#241c15" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <!-- wall timbering -->
+              <path d="M330 150H870M330 470H870M400 150V578M620 150V578M840 150V578" opacity=".55"/>
+              <path d="M330 578H870M330 600H870M330 622H870M330 644H870" opacity=".35"/>
+              <path d="M370 150V250M700 150V250" opacity=".35"/>
+
+              <!-- window -->
+              <rect x="360" y="190" width="190" height="210" fill="#f7ecd5" stroke-width="2"/>
+              <path d="M360 225H550M360 260H550M360 295H550M360 330H550M360 365H550"/>
+              <path d="M408 190V400M456 190V400M504 190V400"/>
+              <path d="M360 190L408 225L456 190L504 225L550 190M360 260L408 295L456 260L504 295L550 260M360 330L408 365L456 330L504 365L550 330" opacity=".45"/>
+              <rect x="348" y="178" width="214" height="234" stroke-width="1" opacity=".5"/>
+
+              <!-- shelf and shoes -->
+              <path d="M465 278H690M465 290H690M476 278V294M680 278V294" stroke-width="2"/>
+              <path d="M488 276Q498 258 518 260L532 276Q512 282 488 276Z" fill="#241c15"/>
+              <path d="M545 276Q555 258 575 260L589 276Q569 282 545 276Z" fill="#241c15"/>
+              <path d="M602 276Q612 258 632 260L646 276Q626 282 602 276Z" fill="#241c15"/>
+
+              <!-- hanging tools and apron -->
+              <path d="M760 168V300M780 168V262M800 168V312" stroke-width="2"/>
+              <path d="M748 300H772M772 262H792M792 312H812" stroke-width="3"/>
+              <path d="M828 180Q858 168 888 180L878 304Q858 322 838 304Z" fill="url(#hatch)" opacity=".55"/>
+              <path d="M828 180Q858 168 888 180L878 304Q858 322 838 304Z"/>
+
+              <!-- floor / workbench -->
+              <path d="M330 578H870" stroke-width="2"/>
+              <path d="M495 535H895M503 547H887M515 547V655M875 547V655" stroke-width="2.2"/>
+              <path d="M495 535L483 547H907L895 535" fill="#241c15"/>
+              <path d="M515 560H875M515 575H875" opacity=".5"/>
+              <path d="M515 590V650M875 590V650" opacity=".5"/>
+
+              <!-- stool -->
+              <path d="M382 548H470M392 548V635M460 548V635" stroke-width="2.2"/>
+              <path d="M382 548H470" stroke-width="4"/>
+
+              <!-- shoemaker silhouette -->
+              <g fill="#241c15" stroke="none">
+                <path d="M408 353Q408 320 438 318Q468 321 468 352L466 376Q458 392 438 392Q415 390 410 374Z"/>
+                <path d="M398 386Q438 402 478 386L486 412Q438 430 390 412Z"/>
+                <path d="M400 408Q378 452 386 506L428 535L478 522L482 456Q476 422 455 402Z"/>
+                <path d="M388 482L472 488L488 574L406 584Z"/>
+                <path d="M455 420Q500 452 538 492L550 505L528 520L490 488L448 454Z"/>
+                <path d="M405 525Q450 540 446 585L436 620L422 620L430 585L392 540Z"/>
+                <path d="M430 612Q462 602 490 616L500 632L420 632Z"/>
+                <path d="M392 560Q430 570 470 560L472 574Q430 584 390 574Z"/>
+              </g>
+
+              <!-- paper lines on the silhouette -->
+              <g fill="none" stroke="#efe3cc" stroke-width=".9" opacity=".75">
+                <path d="M414 340Q426 330 440 334M420 356Q432 362 446 356M416 370Q430 376 444 370"/>
+                <path d="M401 403Q438 414 474 403M404 410L398 420M418 414L414 424M432 417L430 427M446 417L448 427M460 414L464 424M472 410L479 420"/>
+                <path d="M408 430Q430 450 446 430M404 466Q430 478 458 466"/>
+                <path d="M394 495L470 500M398 520L470 526M406 548L478 552"/>
+                <path d="M446 430Q476 454 500 478M452 446Q480 470 508 494"/>
+                <path d="M410 538Q438 552 434 584M418 600Q444 594 466 606"/>
+                <path d="M468 326Q482 334 476 346M470 360Q480 368 474 378"/>
+              </g>
+
+              <!-- hands and shoe on the last -->
+              <path d="M536 492Q552 486 560 498Q554 510 536 506Z" fill="#241c15"/>
+              <path d="M548 506Q578 490 610 502L622 516Q592 532 558 520Z" fill="#241c15"/>
+              <path d="M550 507Q568 520 590 513" stroke="#efe3cc" stroke-width=".9" opacity=".7"/>
+              <path d="M516 480L536 446M524 446H548M530 446V436" stroke-width="2.2"/>
+
+              <!-- tools on the bench -->
+              <path d="M642 526L682 526M654 526V514M644 514H664" stroke-width="2"/>
+              <path d="M710 520L740 510M710 520L704 530" stroke-width="1.8"/>
+              <path d="M790 528Q820 512 850 524L860 536Q830 548 800 538Z" fill="url(#hatch2)" opacity=".5"/>
+              <path d="M790 528Q820 512 850 524L860 536Q830 548 800 538Z"/>
+
+              <!-- pewter basin -->
+              <ellipse cx="730" cy="525" rx="80" ry="23" fill="#f7ecd5" stroke="#241c15" stroke-width="2"/>
+              <ellipse cx="730" cy="518" rx="66" ry="15"/>
+              <path d="M664 523Q730 555 796 523"/>
+              <path d="M682 514Q730 502 778 514" opacity=".55"/>
+              <path d="M664 523Q700 538 736 538" stroke="#efe3cc" stroke-width="2" opacity=".6"/>
+            </g>
+
+            <!-- light beam -->
+            <polygon class="beam" points="368,398 548,398 848,535 760,620" fill="url(#beamGrad)"/>
+            <polygon class="beam beam-2" points="360,190 550,190 860,500 800,560" fill="url(#beamGrad)" opacity=".22"/>
+
+            <!-- the vision rose -->
+            <g transform="translate(730 525)">
+              <circle r="270" fill="url(#visionGrad)" class="vision-halo"/>
+              <g class="vision">
+                <g class="vision-spin">
+                  <circle r="58" class="v-line"/>
+                  <circle r="102" class="v-line"/>
+                  <circle r="150" class="v-line"/>
+                  <circle r="200" class="v-line"/>
+                  <circle r="252" class="v-line v-faint"/>
+                  <g class="vision-petals" fill="none" stroke="#b8863b" stroke-width="1.3" opacity=".95">
+                    <ellipse cy="-84" rx="18" ry="58"/>
+                    <ellipse cy="-84" rx="18" ry="58" transform="rotate(51.4)"/>
+                    <ellipse cy="-84" rx="18" ry="58" transform="rotate(102.8)"/>
+                    <ellipse cy="-84" rx="18" ry="58" transform="rotate(154.2)"/>
+                    <ellipse cy="-84" rx="18" ry="58" transform="rotate(205.6)"/>
+                    <ellipse cy="-84" rx="18" ry="58" transform="rotate(257)"/>
+                    <ellipse cy="-84" rx="18" ry="58" transform="rotate(308.4)"/>
+                  </g>
+                  <g class="vision-rays">
+                    <path class="v-line" d="M0 -58V-252M0 58V252M-58 0H-252M58 0H252"/>
+                    <path class="v-line v-faint" d="M41 -41L178 -178M-41 41L-178 178M41 41L178 178M-41 -41L-178 -178"/>
+                    <path class="v-line v-faint" d="M22 -54L110 -270M-22 54L-110 270M54 22L270 110M-54 -22L-270 -110"/>
+                  </g>
+                  <g class="vision-stars" fill="#b8863b" stroke="none">
+                    <circle cx="0" cy="-200" r="2.5"/><circle cx="0" cy="200" r="2.5"/>
+                    <circle cx="200" cy="0" r="2.5"/><circle cx="-200" cy="0" r="2.5"/>
+                    <circle cx="142" cy="-142" r="2.5"/><circle cx="-142" cy="142" r="2.5"/>
+                    <circle cx="142" cy="142" r="2.5"/><circle cx="-142" cy="-142" r="2.5"/>
+                  </g>
+                </g>
+                <circle r="34" class="v-line v-gold"/>
+                <g class="vision-eye">
+                  <path d="M-48 0Q0 -30 48 0Q0 30 -48 0Z" fill="none" stroke="#b8863b" stroke-width="1.6"/>
+                  <circle r="12" fill="#b8863b" stroke="none"/>
+                  <circle r="5" fill="#2b2119" stroke="none"/>
+                </g>
+                <g class="vision-nodes">
+                  <g transform="translate(0 -150)"><circle r="12"/><text y="4">1</text></g>
+                  <g transform="translate(116 -95)"><circle r="12"/><text y="4">2</text></g>
+                  <g transform="translate(146 36)"><circle r="12"/><text y="4">3</text></g>
+                  <g transform="translate(72 132)"><circle r="12"/><text y="4">4</text></g>
+                  <g transform="translate(-62 138)"><circle r="12"/><text y="4">5</text></g>
+                  <g transform="translate(-144 46)"><circle r="12"/><text y="4">6</text></g>
+                  <g transform="translate(-128 -80)"><circle r="12"/><text y="4">7</text></g>
+                </g>
+              </g>
+            </g>
+          </g>
+
+          <!-- double plate border -->
+          <g class="ink" fill="none" stroke="#241c15" stroke-linecap="round">
+            <circle cx="600" cy="380" r="285" stroke-width="2"/>
+            <circle cx="600" cy="380" r="295" stroke-width="1"/>
+            <circle cx="600" cy="380" r="302" stroke-width=".6" opacity=".55"/>
+          </g>
+
+          <!-- annotations -->
+          <g class="annotations" fill="#241c15" font-family="Iowan Old Style, Palatino, Georgia, serif">
+            <path class="anno-line" d="M870 315L1000 258"/>
+            <text x="1008" y="250" class="anno">center of nature</text>
+            <path class="anno-line" d="M668 598L360 614"/>
+            <text x="70" y="620" class="anno">the pewter vessel</text>
+          </g>
+        </svg>
+
+        <div class="stage-tools">
+          <button type="button" data-act="replay" data-target="woodcutStage">Replay</button>
+          <button type="button" data-act="pause" data-target="woodcutStage">Pause</button>
+          <button type="button" data-act="full" data-target="woodcutStage">Full screen</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="study-foot">
+      <p class="quote">“In the famous version recounted by Franckenberg, the young shoemaker was seated in his shop when the gleam of light (presumably a reflection of the sun) in a tin or pewter vessel gave him the impression of looking into a concealed ‘center of nature’…”</p>
+      <p class="note">The drawing follows the entry’s own account: the leaded window, the shoemaker’s bench and the pewter vessel. The radiant diagram is not a portrait of the vision but a diagram of what the text calls the “center of nature”: concentric spheres, the cross of the four directions, and seven marked qualities.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       II. AURORA
+       ============================================================ -->
+  <section class="study" id="aurora">
+    <header class="study-head">
+      <div class="study-title">
+        <span class="numeral">II</span>
+        <div>
+          <h2>Aurora</h2>
+          <p>1612 · canvas, heliocentric diagram</p>
+        </div>
+      </div>
+      <p class="medium">Canvas 2D · particle glow · orbital motion</p>
+    </header>
+
+    <div class="stage-wrap">
+      <div class="stage aurora-stage is-playing" id="auroraStage">
+        <canvas id="auroraCanvas" aria-label="An animated heliocentric diagram in gold engraving style. Seven concentric orbits carry numbered markers; a sun pulses at the centre inside a triangle of the Trinity; stars twinkle."></canvas>
+        <div class="aurora-title">
+          <span>Morgen röte</span>
+          <span>im auffgang</span>
+        </div>
+        <div class="aurora-sub">Aurora · 1612</div>
+        <div class="aurora-quote">“the solar system [is] a visible symbol of the Trinity”</div>
+        <div class="stage-tools">
+          <button type="button" data-act="replay" data-target="auroraStage">Replay</button>
+          <button type="button" data-act="pause" data-target="auroraStage">Pause</button>
+          <button type="button" data-act="full" data-target="auroraStage">Full screen</button>
+        </div>
+      </div>
+    </div>
+
+    <ul class="legend" id="auroraLegend" aria-label="The seven source-spirits">
+      <li data-q="1"><span>1</span> Dry / Saturnine</li>
+      <li data-q="2"><span>2</span> Sweet</li>
+      <li data-q="3"><span>3</span> Bitter</li>
+      <li data-q="4"><span>4</span> Fire / Water</li>
+      <li data-q="5"><span>5</span> Love</li>
+      <li data-q="6"><span>6</span> Sound / Mercury</li>
+      <li data-q="7"><span>7</span> Corpus</li>
+    </ul>
+
+    <div class="study-foot">
+      <p class="quote">“Aurora also accepts the symbolic and real centrality of the sun in the solar system. … Therefore, the seven qualities or forces are elaborated into a microcosm of divine being, a kind of dynamic and nature-generating atom of all things and processes…”</p>
+      <p class="note">The seven rings are the seven <em>Quellgeister</em> or source-spirits of <em>Aurora</em>, not literal planets. The central triangle is the entry’s “visible symbol of the Trinity”; the orbiting numbers correspond to the sequence given in the text. Click or tap the stage to send a flash through the diagram.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       III. THREE PRINCIPLES
+       ============================================================ -->
+  <section class="study" id="principles">
+    <header class="study-head">
+      <div class="study-title">
+        <span class="numeral">III</span>
+        <div>
+          <h2>Three Principles</h2>
+          <p>1618 · SVG alchemical triptych</p>
+        </div>
+      </div>
+      <p class="medium">SVG · emblem · interactive panels</p>
+    </header>
+
+    <div class="stage-wrap">
+      <div class="stage triptych-stage is-playing" id="triptychStage">
+        <svg class="triptych" viewBox="0 0 1200 720" role="img" aria-label="An alchemical triptych: the dark fire world on the left, the earthly world with the tree and the androgynous Adam in the centre, and the light world on the right.">
+          <defs>
+            <radialGradient id="fireGlow" cx="50%" cy="60%" r="55%">
+              <stop offset="0" stop-color="#c84a2d" stop-opacity=".55"/>
+              <stop offset=".55" stop-color="#7b2017" stop-opacity=".2"/>
+              <stop offset="1" stop-color="#0e0c0a" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="lightGlow" cx="50%" cy="45%" r="55%">
+              <stop offset="0" stop-color="#f6e2a8" stop-opacity=".8"/>
+              <stop offset=".45" stop-color="#d3a44f" stop-opacity=".25"/>
+              <stop offset="1" stop-color="#0e0c0a" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="treeGrad" x1="0" y1="1" x2="0" y2="0">
+              <stop offset="0" stop-color="#8e5b2a"/>
+              <stop offset=".5" stop-color="#d2a65c"/>
+              <stop offset="1" stop-color="#f2dca6"/>
+            </linearGradient>
+            <filter id="softGlow" x="-60%" y="-60%" width="220%" height="220%">
+              <feGaussianBlur stdDeviation="7" result="b"/>
+              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <filter id="tinyGlow" x="-80%" y="-80%" width="260%" height="260%">
+              <feGaussianBlur stdDeviation="3" result="b"/>
+              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <pattern id="tHatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(40)">
+              <line x1="0" y1="0" x2="0" y2="6" stroke="#d2a65c" stroke-width=".5" opacity=".5"/>
+            </pattern>
+          </defs>
+
+          <rect width="1200" height="720" fill="#0e0c0a"/>
+          <rect width="1200" height="720" fill="url(#tHatch)" opacity=".07"/>
+
+          <!-- frame -->
+          <g fill="none" stroke="#c9a05c" stroke-width="1.2" opacity=".75">
+            <path d="M26 26H1174V694H26Z"/>
+            <path d="M38 38H1162V682H38Z" opacity=".55"/>
+            <path d="M600 50V670" opacity=".45"/>
+            <path d="M46 64H1154" opacity=".25"/>
+            <path d="M46 656H1154" opacity=".25"/>
+          </g>
+
+          <!-- left panel: fire world -->
+          <g class="panel panel-left" data-title="Feuer-Welt · the dark world" data-quote="“The ‘dark world’ or ‘fire world’, ruled by the wrathful God, is counterpoised with the introspective search for the hidden God manifest in the innermost being of the soul.”">
+            <rect x="60" y="110" width="320" height="500" fill="#120b08" stroke="#a34a2e" stroke-width="1.2"/>
+            <rect x="72" y="122" width="296" height="476" fill="none" stroke="#a34a2e" stroke-width=".6" opacity=".55"/>
+            <circle cx="220" cy="370" r="180" fill="url(#fireGlow)"/>
+
+            <g class="flames" fill="none" stroke="#d2603a" stroke-width="1.5" stroke-linejoin="round">
+              <path class="flame flame-a" d="M108 556Q124 466 170 492Q184 404 222 470Q244 376 282 460Q310 418 326 500Q344 540 322 568H116Z" fill="#7b2017" fill-opacity=".28"/>
+              <path class="flame flame-b" d="M142 560Q158 498 190 516Q204 452 232 502Q252 438 280 506Q302 480 312 548Q324 570 306 582H150Z" fill="#c84a2d" fill-opacity=".18"/>
+              <path class="flame flame-c" d="M178 570Q190 526 214 540Q222 500 244 536Q262 506 280 548Q292 570 280 584H190Z" fill="#e6a15f" fill-opacity=".12"/>
+              <path d="M108 556Q124 466 170 492Q184 404 222 470Q244 376 282 460Q310 418 326 500Q344 540 322 568"/>
+              <path d="M142 560Q158 498 190 516Q204 452 232 502Q252 438 280 506Q302 480 312 548"/>
+            </g>
+
+            <!-- wrathful eye -->
+            <g class="eye" fill="none" stroke="#e0a05f" stroke-width="1.2">
+              <path d="M150 250Q220 196 290 250Q220 304 150 250Z"/>
+              <circle cx="220" cy="250" r="20" fill="#8d2a1c" stroke="#e0a05f"/>
+              <circle cx="220" cy="250" r="8" fill="#f0c47a" stroke="none"/>
+              <path d="M220 250L220 238M220 250L230 254" stroke="#2a100b" stroke-width="2"/>
+              <path d="M130 210L110 190M310 210L330 190M220 180V150" opacity=".55"/>
+            </g>
+
+            <!-- sulphur symbol -->
+            <g class="alchemy-symbol" transform="translate(220 588)" fill="none" stroke="#e0a05f" stroke-width="1.4">
+              <path d="M0 -22L20 12H-20Z"/>
+              <path d="M0 12V32M-10 22H10"/>
+              <text y="50" text-anchor="middle" class="symbol-label">SULPHUR</text>
+            </g>
+
+            <text x="220" y="662" text-anchor="middle" class="panel-label">FEUER-WELT</text>
+            <text x="220" y="678" text-anchor="middle" class="panel-sub">the dark world</text>
+          </g>
+
+          <!-- centre panel: earthly world -->
+          <g class="panel panel-centre" data-title="Erden-Welt · the earthly world" data-quote="“The first Adam was not mortal. ‘He’ was neither male nor female: this androgyny and perfection anticipate the state of the reborn souls in heaven … The female aspect of the first Adam was the Noble Virgin of Divine Wisdom.”">
+            <rect x="440" y="110" width="320" height="500" fill="#100e0b" stroke="#c9a05c" stroke-width="1.2"/>
+            <rect x="452" y="122" width="296" height="476" fill="none" stroke="#c9a05c" stroke-width=".6" opacity=".55"/>
+            <circle cx="600" cy="360" r="190" fill="url(#lightGlow)" opacity=".35"/>
+
+            <!-- tree -->
+            <circle cx="600" cy="390" r="175" fill="none" stroke="#c9a05c" stroke-width=".6" opacity=".18"/>
+            <circle cx="600" cy="590" r="48" fill="#0e0c0a" stroke="#c9a05c" stroke-width=".8" opacity=".65"/>
+            <g class="tree" fill="none" stroke="url(#treeGrad)" stroke-width="2.8" stroke-linecap="round">
+              <path class="tree-trunk" pathLength="1" d="M600 560Q590 500 596 430Q602 360 600 292"/>
+              <path pathLength="1" d="M600 470Q554 448 520 410M600 440Q646 418 680 380M600 410Q560 386 542 348M600 380Q640 354 658 318M600 340Q570 318 560 286M600 310Q626 290 636 264"/>
+              <path pathLength="1" d="M600 560Q560 578 528 606M600 560Q640 578 672 606M600 560Q580 590 572 626M600 560Q620 590 628 626"/>
+              <g class="tree-nodes" fill="#f2dca6" stroke="none">
+                <circle cx="520" cy="410" r="3"/><circle cx="680" cy="380" r="3"/>
+                <circle cx="542" cy="348" r="3"/><circle cx="658" cy="318" r="3"/>
+                <circle cx="560" cy="286" r="3"/><circle cx="636" cy="264" r="3"/>
+                <circle cx="600" cy="292" r="4"/>
+              </g>
+              <g class="tree-leaves" fill="#d2a65c" stroke="none" opacity=".55">
+                <ellipse cx="514" cy="404" rx="5" ry="2.2" transform="rotate(-32 514 404)"/>
+                <ellipse cx="526" cy="418" rx="5" ry="2.2" transform="rotate(28 526 418)"/>
+                <ellipse cx="686" cy="374" rx="5" ry="2.2" transform="rotate(-28 686 374)"/>
+                <ellipse cx="674" cy="388" rx="5" ry="2.2" transform="rotate(30 674 388)"/>
+                <ellipse cx="536" cy="342" rx="5" ry="2.2" transform="rotate(-38 536 342)"/>
+                <ellipse cx="550" cy="356" rx="5" ry="2.2" transform="rotate(24 550 356)"/>
+                <ellipse cx="664" cy="312" rx="5" ry="2.2" transform="rotate(-26 664 312)"/>
+                <ellipse cx="652" cy="326" rx="5" ry="2.2" transform="rotate(34 652 326)"/>
+                <ellipse cx="554" cy="280" rx="5" ry="2.2" transform="rotate(-42 554 280)"/>
+                <ellipse cx="566" cy="294" rx="5" ry="2.2" transform="rotate(22 566 294)"/>
+                <ellipse cx="642" cy="258" rx="5" ry="2.2" transform="rotate(-24 642 258)"/>
+                <ellipse cx="630" cy="272" rx="5" ry="2.2" transform="rotate(38 630 272)"/>
+              </g>
+            </g>
+
+            <!-- sun and moon -->
+            <g class="centre-sun" fill="none" stroke="#e8c477" stroke-width="1.2">
+              <circle cx="600" cy="202" r="28" fill="#d2a65c" fill-opacity=".18"/>
+              <circle cx="600" cy="202" r="18"/>
+              <path d="M600 158V144M600 260V246M556 202H542M658 202H644M569 171L559 161M631 233L641 243M631 171L641 161M569 233L559 243"/>
+            </g>
+            <g class="centre-moon" fill="none" stroke="#cfd6cf" stroke-width="1.2" opacity=".8">
+              <path d="M528 214A22 22 0 1 0 556 240A18 18 0 1 1 528 214Z" fill="#cfd6cf" fill-opacity=".08"/>
+            </g>
+
+            <!-- androgynous Adam -->
+            <g class="adam" fill="none" stroke="#e8c477" stroke-width="1.5" stroke-linejoin="round">
+              <circle cx="600" cy="430" r="15" fill="#d2a65c" fill-opacity=".12"/>
+              <path d="M600 445V492M600 456L568 476M600 456L632 476M600 492L578 534M600 492L622 534"/>
+              <path d="M585 439Q600 448 615 439" opacity=".7"/>
+              <path d="M600 445V492" stroke="#cfd6cf" opacity=".6"/>
+            </g>
+
+            <!-- mercury symbol -->
+            <g class="alchemy-symbol" transform="translate(600 588)" fill="none" stroke="#e8c477" stroke-width="1.4">
+              <circle cx="0" cy="10" r="16"/>
+              <path d="M0 -6V-20M-8 -12A8 8 0 0 1 8 -12M0 26V38M-8 32H8"/>
+              <text y="56" text-anchor="middle" class="symbol-label">MERCURIUS</text>
+            </g>
+
+            <text x="600" y="662" text-anchor="middle" class="panel-label">ERDEN-WELT</text>
+            <text x="600" y="678" text-anchor="middle" class="panel-sub">the earthly world</text>
+          </g>
+
+          <!-- right panel: light world -->
+          <g class="panel panel-right" data-title="Licht-Welt · the light world" data-quote="“In Six Theosophic Points, the ‘light world’ rises out of the ‘dark world’ of evil and suffering.”">
+            <rect x="820" y="110" width="320" height="500" fill="#0f0d09" stroke="#d8b36a" stroke-width="1.2"/>
+            <rect x="832" y="122" width="296" height="476" fill="none" stroke="#d8b36a" stroke-width=".6" opacity=".55"/>
+            <circle cx="980" cy="330" r="190" fill="url(#lightGlow)"/>
+
+            <!-- sun and rays -->
+            <g class="light-sun" fill="none" stroke="#f2dca6" stroke-width="1.3">
+              <circle cx="980" cy="292" r="42" fill="#f2dca6" fill-opacity=".2" filter="url(#softGlow)"/>
+              <circle cx="980" cy="292" r="26"/>
+              <g class="rays">
+                <path d="M980 240V198M980 344V386M928 292H886M1032 292H1074"/>
+                <path d="M946 258L916 228M1014 326L1044 356M1014 258L1044 228M946 326L916 356"/>
+                <path d="M962 244L948 214M998 340L1012 370M998 244L1012 214M962 340L948 370" opacity=".55"/>
+              </g>
+            </g>
+
+            <!-- wings -->
+            <g class="wings" fill="none" stroke="#e8c477" stroke-width="1.2" opacity=".85">
+              <path d="M906 350Q850 322 832 260Q868 270 890 300Q884 276 892 252Q916 286 926 330"/>
+              <path d="M1054 350Q1110 322 1128 260Q1092 270 1070 300Q1076 276 1068 252Q1044 286 1034 330"/>
+              <path d="M910 358Q862 344 844 304M1050 358Q1098 344 1116 304" opacity=".5"/>
+            </g>
+
+            <!-- fountain / chalice -->
+            <g class="fountain" fill="none" stroke="#e8c477" stroke-width="1.3" opacity=".9">
+              <path d="M940 470Q980 500 1020 470M944 478Q980 508 1016 478"/>
+              <path d="M980 500V560M958 560H1002"/>
+              <path d="M952 440Q980 420 1008 440L1020 468Q980 486 940 468Z"/>
+              <path d="M956 452Q980 442 1004 452" opacity=".6"/>
+            </g>
+
+            <!-- salt symbol -->
+            <g class="alchemy-symbol" transform="translate(980 596)" fill="none" stroke="#e8c477" stroke-width="1.4">
+              <circle cx="0" cy="0" r="20"/>
+              <path d="M-20 0H20"/>
+              <text y="42" text-anchor="middle" class="symbol-label">SAL</text>
+            </g>
+
+            <text x="980" y="662" text-anchor="middle" class="panel-label">LICHT-WELT</text>
+            <text x="980" y="678" text-anchor="middle" class="panel-sub">the light world</text>
+          </g>
+
+          <!-- central axis glow -->
+          <g class="axis" fill="none" stroke="#f2dca6" stroke-width="1">
+            <circle cx="600" cy="360" r="10" opacity=".8"/>
+            <circle cx="600" cy="360" r="28" opacity=".25"/>
+            <path d="M600 70V180M600 540V650" opacity=".28" stroke-dasharray="2 6"/>
+          </g>
+
+          <text x="600" y="88" text-anchor="middle" class="triptych-title">DREY PRINCIPIEN GÖTTLICHES WESENS</text>
+          <text x="600" y="104" text-anchor="middle" class="triptych-sub">The Three Principles of Divine Being · 1618</text>
+        </svg>
+
+        <div class="stage-tools">
+          <button type="button" data-act="replay" data-target="triptychStage">Replay</button>
+          <button type="button" data-act="pause" data-target="triptychStage">Pause</button>
+          <button type="button" data-act="full" data-target="triptychStage">Full screen</button>
+        </div>
+      </div>
+      <div class="triptych-caption" id="triptychCaption">Click a panel to read the passage it translates.</div>
+    </div>
+
+    <div class="study-foot">
+      <p class="quote">“The ‘principles’ of his title find their way into his work … as an interpretation of the Paracelsian tria prima of Sulphur, Mercury, and Salt. In connecting these three alchemical substances … with three aspects of the omnipresent trinitarian deity…”</p>
+      <p class="note">The triptych is built from the entry’s own images: the dark fire world, the light world rising out of it, the tree of the earthly world, the androgynous first Adam, and the tria prima. Click a panel to see the sentence it illustrates.</p>
+    </div>
+  </section>
+
+  <footer class="colophon">
+    <span>Motion studies for <em>Dictionary of Gnosis &amp; Western Esotericism</em></span>
+    <a href="../../index.html">← Back to the dictionary</a>
+  </footer>
+</main>
+
+<script src="motion.js"></script>
+</body>
+</html>

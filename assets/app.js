@@ -439,6 +439,7 @@
           <div class="entry-kicker">
             ${e.group ? `<span class="pill">${escapeHtml(e.group)}</span>` : ""}
             <span>${e.xref ? "See reference" : "Dictionary entry"}</span>
+            ${e.id === "boehme-jacob" ? `<a class="motion-link" href="motion/boehme/">Motion study <span>→</span></a>` : ""}
           </div>
           <h1>${escapeHtml(e.title)}</h1>
           ${sub ? `<p class="entry-sub">${escapeHtml(sub)}</p>` : ""}
