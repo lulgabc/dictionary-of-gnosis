@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pilot · Eight Entries, One PixiJS Renderer</title>
+<meta name="description" content="A pilot for the Dictionary of Gnosis: eight entries across eight visual families, rendered by one PixiJS runtime and one canvas.">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="pilot.css">
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="topbar">
+  <a class="back" href="../../index.html"><span class="back-arrow">←</span> Dictionary</a>
+  <span class="topbar-rule"></span>
+  <a class="topbar-link" href="../boehme/">Boehme studies</a>
+  <span class="topbar-spacer"></span>
+  <span class="topbar-label">Pilot · 8 entries</span>
+</header>
+
+<main class="shell">
+
+  <section class="hero">
+    <p class="eyebrow">Phase 1 · production pilot</p>
+    <h1>One renderer.<br><em>Eight worlds.</em></h1>
+    <p class="lede">Eight entries from different periods and intellectual worlds, all drawn procedurally by a single PixiJS renderer. The point is not to finish the dictionary; it is to measure the real shape of the work: research, visual family, asset cost, integration, mobile behaviour and review.</p>
+    <ul class="pilot-stats">
+      <li><span class="n">8</span><span class="l">Scenes</span></li>
+      <li><span class="n">1</span><span class="l">WebGL renderer</span></li>
+      <li><span class="n">1</span><span class="l">Canvas</span></li>
+      <li><span class="n">0</span><span class="l">Raster assets</span></li>
+      <li><span class="n">~970</span><span class="l">Lines of scene code</span></li>
+    </ul>
+  </section>
+
+  <section class="pilot">
+    <aside class="scene-list-wrap">
+      <div class="list-head"><span>Eight entries</span><span id="listCount">8</span></div>
+      <nav class="scene-list" id="sceneList" aria-label="Pilot entries"></nav>
+      <p class="list-note">One scene is alive at a time. Switching destroys the old scene and reuses the same renderer and canvas.</p>
+    </aside>
+
+    <div class="player">
+      <div class="stage" id="stage">
+        <canvas id="canvas" aria-label="Animated PixiJS scene"></canvas>
+        <div class="stage-type" id="stageType"></div>
+        <div class="stage-title">
+          <h2 id="stageTitle"></h2>
+          <p id="stageSub"></p>
+        </div>
+        <div class="stage-quote" id="stageQuote"></div>
+        <div class="stage-controls">
+          <button type="button" id="replayBtn">Replay</button>
+          <button type="button" id="pauseBtn">Pause</button>
+          <button type="button" id="fullBtn">Full screen</button>
+        </div>
+      </div>
+
+      <div class="scene-info">
+        <div class="info-main">
+          <h3 id="infoTitle"></h3>
+          <p id="infoNote"></p>
+        </div>
+        <dl class="scene-facts">
+          <div><dt>Production estimate</dt><dd id="infoEffort"></dd></div>
+          <div><dt>Main risk</dt><dd id="infoRisk"></dd></div>
+          <div><dt>Family</dt><dd id="infoFamily"></dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="scorecard">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">What the pilot measures</p>
+        <h2>Production scorecard</h2>
+      </div>
+      <p class="section-note">These are production estimates — research, design, implementation, integration and QA — not the time spent on this prototype.</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Scene</th><th>Visual family</th><th>Estimate</th><th>Main risk</th></tr>
+        </thead>
+        <tbody id="scoreBody"></tbody>
+      </table>
+    </div>
+    <div class="pilot-findings">
+      <div>
+        <h3>What this proves</h3>
+        <ul>
+          <li>One PixiJS renderer can carry eight radically different visual families; the scene switch is a destroy-and-rebuild, not a new page.</li>
+          <li>Procedural drawing removes the raster-asset pipeline for these scenes: no image licensing, no atlas downloads, no 420 separate asset folders.</li>
+          <li>The expensive part is not the renderer. It is deciding what the entry should look like, checking the historical vocabulary, and reviewing the result.</li>
+          <li>Mobile, reduced motion and off-screen pausing are runtime concerns that can be solved once, in the player.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>What it does not solve</h3>
+        <ul>
+          <li>Eight scenes are not 344. The visual families need a shared grammar so the dictionary does not become a gallery of unrelated posters.</li>
+          <li>Some entries need images, maps or portraits that cannot be drawn as pure geometry; those will add an asset pipeline.</li>
+          <li>Historical and symbolic review is still manual. A wrong zodiac order or a misread masonic symbol is a content error, not a rendering bug.</li>
+          <li>The pilot is a feasibility pass, not a production schedule. The next step is a costed family system, not 336 more one-offs.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer class="colophon">
+    <span>Pilot for <em>Dictionary of Gnosis &amp; Western Esotericism</em> · PixiJS 7.4.2</span>
+    <a href="../../index.html">← Back to the dictionary</a>
+  </footer>
+</main>
+
+<script src="../boehme/lib/pixi.min.js"></script>
+<script src="shared.js"></script>
+<script src="scenes.js"></script>
+<script src="pilot.js"></script>
+</body>
+</html>

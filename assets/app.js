@@ -12,6 +12,18 @@
     return;
   }
 
+  const MOTION_LINKS = {
+    "boehme-jacob": ["motion/boehme/", "Motion study"],
+    "dee-john": ["motion/pilot/#dee", "Pilot animation"],
+    "alchemy-i-introduction": ["motion/pilot/#alchemy", "Pilot animation"],
+    "astrology-i-introduction": ["motion/pilot/#astrology", "Pilot animation"],
+    "gnosticism-i-gnostic-religion": ["motion/pilot/#gnosticism", "Pilot animation"],
+    "hermetic-literature-i-antiquity": ["motion/pilot/#hermetic", "Pilot animation"],
+    "freemasonry": ["motion/pilot/#freemasonry", "Pilot animation"],
+    "theosophical-society": ["motion/pilot/#theosophy", "Pilot animation"],
+    "ufo-traditions": ["motion/pilot/#ufo", "Pilot animation"],
+  };
+
   const { meta, groups, entries } = DATA;
   const main = document.getElementById("main");
   const sidebar = document.getElementById("sidebar");
@@ -279,6 +291,7 @@
           <div class="hero-actions">
             <a class="btn primary" href="#/letter/A">Browse the dictionary</a>
             <button class="btn" type="button" id="heroRandom">Surprise me</button>
+            <a class="btn" href="motion/pilot/">Motion pilot</a>
             <button class="btn" type="button" id="heroAbout">About the text</button>
           </div>
         </section>
@@ -439,7 +452,7 @@
           <div class="entry-kicker">
             ${e.group ? `<span class="pill">${escapeHtml(e.group)}</span>` : ""}
             <span>${e.xref ? "See reference" : "Dictionary entry"}</span>
-            ${e.id === "boehme-jacob" ? `<a class="motion-link" href="motion/boehme/">Motion study <span>→</span></a>` : ""}
+            ${MOTION_LINKS[e.id] ? `<a class="motion-link" href="${MOTION_LINKS[e.id][0]}">${MOTION_LINKS[e.id][1]} <span>→</span></a>` : ""}
           </div>
           <h1>${escapeHtml(e.title)}</h1>
           ${sub ? `<p class="entry-sub">${escapeHtml(sub)}</p>` : ""}

@@ -40,6 +40,21 @@ The first entry with animation studies is **Boehme, Jacob** — a natural test c
 
 Open [`motion/boehme/`](motion/boehme/) or follow the **Motion study** link on the Boehme entry. The Three.js and PixiJS builds are vendored locally in `motion/boehme/lib/` (MIT).
 
+## Pilot · eight entries
+
+[`motion/pilot/`](motion/pilot/) is the Phase 1 production pilot: **eight entries, one PixiJS renderer, one canvas**.
+
+- Dee, John — *The Skrying Glass*
+- Alchemy I: Introduction — *The Great Work*
+- Astrology I: Introduction — *As Above, So Below*
+- Gnosticism I: Gnostic Religion — *The Spark and the Archons*
+- Hermetic Literature I: Antiquity — *The Corpus Hermeticum*
+- Freemasonry — *The Tracing Board*
+- Theosophical Society — *The Seven Globes*
+- UFO Traditions — *Contact*
+
+The pilot is deliberately a **visual-family test**, not a finished style guide. It includes per-scene production estimates, risks and findings in the page and in [`motion/pilot/README.md`](motion/pilot/README.md).
+
 ## Run it
 
 Open `index.html` directly in a browser. The data is loaded with a normal `<script>` tag, so it also works from `file://`.
