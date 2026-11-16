@@ -35,8 +35,10 @@ The first entry with animation studies is **Boehme, Jacob** — a natural test c
 - **I. The Pewter Gleam** — an SVG woodcut of the Görlitz workshop, with the 1600 vision drawn as a radiant “center of nature”.
 - **II. Aurora** — a Canvas 2D heliocentric diagram: seven source-spirits, orbital motion, and a Trinitarian triangle.
 - **III. Three Principles** — an interactive alchemical triptych of the dark fire world, the earthly world and the light world.
+- **IV. The Center of Nature** — a Three.js / WebGL still life: pewter bowl, light column, eye-orb and seven rings, with pointer orbit and pulse.
+- **V. Aurora / Particle Rose** — a PixiJS particle mandala with gold dust, a displacement tremor, pointer vortex and click burst.
 
-Open [`motion/boehme/`](motion/boehme/) or follow the **Motion study** link on the Boehme entry.
+Open [`motion/boehme/`](motion/boehme/) or follow the **Motion study** link on the Boehme entry. The Three.js and PixiJS builds are vendored locally in `motion/boehme/lib/` (MIT).
 
 ## Run it
 

@@ -298,7 +298,7 @@ button { font: inherit; color: inherit; }
   background: #0b0907;
 }
 .stage:fullscreen .woodcut { height: 100vh; }
-.stage:fullscreen canvas { width: 100vw; height: 100vh; }
+.stage:fullscreen canvas { width: 100vw !important; height: 100vh !important; }
 .stage:fullscreen .triptych { height: 100vh; }
 
 /* ---------- I. woodcut ---------- */
@@ -672,6 +672,144 @@ button { font: inherit; color: inherit; }
 }
 .triptych-stage .stage-tools { top: .8rem; bottom: auto; }
 
+/* ---------- IV. three.js ---------- */
+
+.three-stage {
+  aspect-ratio: 16 / 9;
+  background:
+    radial-gradient(60% 70% at 50% 42%, rgba(209, 167, 95, .13), transparent 70%),
+    radial-gradient(90% 100% at 50% 100%, rgba(139, 58, 42, .08), transparent 60%),
+    #090705;
+}
+#threeCanvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+}
+#threeCanvas:active { cursor: grabbing; }
+.three-stage::after,
+.pixi-stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(70% 80% at 50% 45%, transparent 40%, rgba(0, 0, 0, .55) 100%);
+}
+.three-overlay {
+  position: absolute;
+  left: clamp(1rem, 3vw, 2rem);
+  top: clamp(1rem, 3vw, 1.8rem);
+  display: flex;
+  flex-direction: column;
+  gap: .35rem;
+  pointer-events: none;
+  z-index: 3;
+}
+.three-eyebrow {
+  font-family: var(--sans);
+  font-size: .55rem;
+  font-weight: 600;
+  letter-spacing: .24em;
+  color: rgba(232, 196, 119, .8);
+}
+.three-sub {
+  font-family: var(--serif);
+  font-size: .85rem;
+  font-style: italic;
+  color: rgba(233, 223, 204, .6);
+}
+
+/* ---------- V. pixi ---------- */
+
+.pixi-stage {
+  aspect-ratio: 16 / 9;
+  background:
+    radial-gradient(55% 65% at 50% 48%, rgba(209, 167, 95, .16), transparent 65%),
+    radial-gradient(90% 100% at 50% 100%, rgba(139, 58, 42, .07), transparent 60%),
+    #080605;
+}
+#pixiCanvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: crosshair;
+}
+.pixi-title {
+  position: absolute;
+  top: clamp(1rem, 3vw, 2rem);
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  pointer-events: none;
+  z-index: 3;
+  font-family: var(--serif);
+  color: rgba(242, 220, 166, .92);
+  text-shadow: 0 0 26px rgba(209, 167, 95, .35);
+}
+.pixi-title span {
+  display: block;
+  font-size: clamp(1.1rem, 2.8vw, 1.75rem);
+  letter-spacing: .28em;
+  text-transform: uppercase;
+}
+.pixi-title em {
+  display: block;
+  margin-top: .2rem;
+  font-size: .72rem;
+  letter-spacing: .18em;
+  color: rgba(209, 167, 95, .65);
+}
+.pixi-quote {
+  position: absolute;
+  left: clamp(1rem, 3vw, 2rem);
+  bottom: clamp(1rem, 3vw, 1.8rem);
+  max-width: 360px;
+  font-size: .76rem;
+  font-style: italic;
+  line-height: 1.5;
+  color: rgba(233, 223, 204, .6);
+  pointer-events: none;
+  z-index: 3;
+}
+.three-stage .stage-tools,
+.pixi-stage .stage-tools {
+  z-index: 6;
+  border-color: rgba(233, 223, 204, .3);
+  background: rgba(14, 12, 10, .62);
+  color: var(--ink-soft);
+}
+.three-stage .stage-tools button,
+.pixi-stage .stage-tools button {
+  border-color: rgba(233, 223, 204, .3);
+  background: rgba(14, 12, 10, .62);
+  color: var(--ink-soft);
+}
+.three-stage .stage-tools button:hover,
+.pixi-stage .stage-tools button:hover {
+  background: var(--gold);
+  color: #17130e;
+  border-color: var(--gold);
+}
+
+.stage-fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 2rem;
+  text-align: center;
+  font-family: var(--sans);
+  font-size: .72rem;
+  letter-spacing: .06em;
+  color: var(--muted);
+  background: #0b0907;
+}
+
 /* ---------- study foot ---------- */
 
 .study-foot {
@@ -735,6 +873,9 @@ button { font: inherit; color: inherit; }
   .medium { display: none; }
   .stage { aspect-ratio: 4 / 3; }
   .aurora-stage { aspect-ratio: 3 / 4; }
+  .three-stage, .pixi-stage { aspect-ratio: 4 / 3; }
+  .pixi-title em { display: none; }
+  .pixi-quote { display: none; }
   .woodcut .anno { font-size: 12px; }
   .woodcut .plate-title {
   font-family: var(--serif);

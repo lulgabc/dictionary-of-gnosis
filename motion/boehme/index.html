@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Boehme, Jacob — Motion Studies</title>
-<meta name="description" content="Three animated studies for the entry on Jacob Boehme: a woodcut vision, an Aurora cosmological diagram, and a Three Principles triptych.">
+<meta name="description" content="Five animated studies for the entry on Jacob Boehme: a woodcut vision, an Aurora cosmological diagram, a Three Principles triptych, a Three.js center of nature, and a PixiJS particle rose.">
 <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="motion.css">
 </head>
@@ -27,7 +27,7 @@
     <p class="eyebrow">Motion studies · Jacob Boehme</p>
     <h1>Boehme,<br><em>Jacob</em></h1>
     <p class="dates">Görlitz · 1575–1624</p>
-    <p class="lede">Three ways of animating one entry. The shoemaker’s vision of 1600, the heliocentric <em>Aurora</em> of 1612, and the dark–light triptych of <em>The Three Principles</em> of 1618. Each study uses a different visual language: woodcut line-drawing, a copperplate cosmological diagram, and an alchemical emblem.</p>
+    <p class="lede">Five ways of animating one entry. The shoemaker’s vision of 1600, the heliocentric <em>Aurora</em> of 1612, and the dark–light triptych of <em>The Three Principles</em> of 1618. Three studies use drawing and diagram; two use GPU engines — a Three.js object and a PixiJS particle mandala.</p>
     <blockquote class="hero-quote">
       “the gleam of light … in a tin or pewter vessel gave him the impression of looking into a concealed ‘center of nature’”
       <cite>— the entry, on the experience of 1600</cite>
@@ -36,6 +36,8 @@
       <a href="#pewter"><span>I</span> The Pewter Gleam</a>
       <a href="#aurora"><span>II</span> Aurora</a>
       <a href="#principles"><span>III</span> Three Principles</a>
+      <a href="#three"><span>IV</span> Center of Nature</a>
+      <a href="#pixi"><span>V</span> Particle Rose</a>
     </nav>
   </section>
 
@@ -548,12 +550,107 @@
     </div>
   </section>
 
+  <!-- ============================================================
+       IV. THE CENTER OF NATURE — THREE.JS
+       ============================================================ -->
+  <section class="study" id="three">
+    <header class="study-head">
+      <div class="study-title">
+        <span class="numeral">IV</span>
+        <div>
+          <h2>The Center of Nature</h2>
+          <p>1600 · Three.js / WebGL object</p>
+        </div>
+      </div>
+      <p class="medium">Three.js · realtime 3D · pointer orbit</p>
+    </header>
+
+    <div class="stage-wrap">
+      <div class="stage three-stage is-playing" id="threeStage">
+        <canvas id="threeCanvas" aria-label="A realtime 3D still life: a pewter bowl at the bottom, a column of golden light, a glowing eye-orb above it, and seven tilted rings with moving source-spirits. Stars and dust drift around them."></canvas>
+        <div class="three-overlay">
+          <span class="three-eyebrow">THE CENTER OF NATURE</span>
+          <span class="three-sub">pewter · light · seven rings</span>
+        </div>
+        <div class="stage-tools">
+          <button type="button" data-act="replay" data-target="threeStage">Replay</button>
+          <button type="button" data-act="pause" data-target="threeStage">Pause</button>
+          <button type="button" data-act="full" data-target="threeStage">Full screen</button>
+        </div>
+      </div>
+    </div>
+
+    <ul class="legend" id="threeLegend" aria-label="The seven source-spirits">
+      <li data-q="1"><span>1</span> Dry / Saturnine</li>
+      <li data-q="2"><span>2</span> Sweet</li>
+      <li data-q="3"><span>3</span> Bitter</li>
+      <li data-q="4"><span>4</span> Fire / Water</li>
+      <li data-q="5"><span>5</span> Love</li>
+      <li data-q="6"><span>6</span> Sound / Mercury</li>
+      <li data-q="7"><span>7</span> Corpus</li>
+    </ul>
+
+    <div class="study-foot">
+      <p class="quote">“The gleam of light … in a tin or pewter vessel gave him the impression of looking into a concealed ‘center of nature’ … a kind of dynamic and nature-generating atom of all things and processes.”</p>
+      <p class="note">A Three.js still life rather than an illustration: a lathed pewter bowl, a cone of light, an eye-like orb and seven rings corresponding to the <em>Quellgeister</em>. Move the pointer to orbit the camera; click the stage for a pulse. The seven numbered legends below match the moving nodes.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       V. AURORA / PARTICLE ROSE — PIXIJS
+       ============================================================ -->
+  <section class="study" id="pixi">
+    <header class="study-head">
+      <div class="study-title">
+        <span class="numeral">V</span>
+        <div>
+          <h2>Aurora / Particle Rose</h2>
+          <p>1612 · PixiJS particle mandala</p>
+        </div>
+      </div>
+      <p class="medium">PixiJS · GPU particles · displacement</p>
+    </header>
+
+    <div class="stage-wrap">
+      <div class="stage pixi-stage is-playing" id="pixiStage">
+        <canvas id="pixiCanvas" aria-label="A particle mandala in gold on black: seven rings of moving particles, a glowing sun at the centre, and a field of drifting dust. The rings and dust respond to the pointer."></canvas>
+        <div class="pixi-title">
+          <span>Aurora</span>
+          <em>particle rose</em>
+        </div>
+        <div class="pixi-quote">“seven qualities or forces … a kind of dynamic and nature-generating atom”</div>
+        <div class="stage-tools">
+          <button type="button" data-act="replay" data-target="pixiStage">Replay</button>
+          <button type="button" data-act="pause" data-target="pixiStage">Pause</button>
+          <button type="button" data-act="full" data-target="pixiStage">Full screen</button>
+        </div>
+      </div>
+    </div>
+
+    <ul class="legend" id="pixiLegend" aria-label="The seven source-spirits">
+      <li data-q="1"><span>1</span> Dry / Saturnine</li>
+      <li data-q="2"><span>2</span> Sweet</li>
+      <li data-q="3"><span>3</span> Bitter</li>
+      <li data-q="4"><span>4</span> Fire / Water</li>
+      <li data-q="5"><span>5</span> Love</li>
+      <li data-q="6"><span>6</span> Sound / Mercury</li>
+      <li data-q="7"><span>7</span> Corpus</li>
+    </ul>
+
+    <div class="study-foot">
+      <p class="quote">“The seven qualities or forces are elaborated into a microcosm of divine being, a kind of dynamic and nature-generating atom of all things and processes: the dry (saturnine) quality is superseded by the sweet quality and the bitter quality…”</p>
+      <p class="note">PixiJS renders the seven rings as fields of gold particles rather than lines. A displacement map gives the orbits a hand-drawn tremor; the pointer attracts a local vortex and a click releases a burst. This is the same diagram as study II, but treated as living metal dust instead of copperplate.</p>
+    </div>
+  </section>
+
   <footer class="colophon">
     <span>Motion studies for <em>Dictionary of Gnosis &amp; Western Esotericism</em></span>
     <a href="../../index.html">← Back to the dictionary</a>
   </footer>
 </main>
 
+<script src="lib/three.min.js"></script>
+<script src="lib/pixi.min.js"></script>
 <script src="motion.js"></script>
 </body>
 </html>
