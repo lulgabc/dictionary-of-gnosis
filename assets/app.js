@@ -337,7 +337,7 @@
 
     const cards = list.map(e => `
       <a class="entry-card${e.xref ? " is-xref" : ""}" href="#/entry/${encodeURIComponent(e.id)}">
-        <div class="t">${escapeHtml(e.title)}${e.xref ? " →" : ""}</div>
+        <div class="t">${escapeHtml(e.title)}${e.xref ? " →" : ""}${state.bilingual && e.title_zh ? `<span class="card-zh" lang="zh-Hans">${escapeHtml(e.title_zh)}</span>` : ""}</div>
         <div class="m">${e.group ? escapeHtml(e.group) + " · " : ""}${e.xref ? "see reference" : e.allwords.toLocaleString() + " words"}</div>
       </a>`).join("");
 
@@ -362,7 +362,7 @@
 
     const cards = list.map(e => `
       <a class="entry-card" href="#/entry/${encodeURIComponent(e.id)}">
-        <div class="t">${escapeHtml(e.title)}</div>
+        <div class="t">${escapeHtml(e.title)}${state.bilingual && e.title_zh ? `<span class="card-zh" lang="zh-Hans">${escapeHtml(e.title_zh)}</span>` : ""}</div>
         <div class="m">${e.allwords.toLocaleString()} words</div>
       </a>`).join("");
 

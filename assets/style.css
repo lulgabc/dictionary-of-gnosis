@@ -1019,6 +1019,13 @@ button { color: inherit; }
 }
 .entry-card:hover { background: var(--gold-soft); border-color: var(--gold); transform: translateY(-1px); }
 .entry-card .t { font-size: .92rem; line-height: 1.3; }
+.entry-card .card-zh {
+  display: block;
+  margin-top: .2rem;
+  font-family: "Songti SC", "Source Han Serif SC", "Noto Serif CJK SC", "STSong", serif;
+  font-size: .7rem;
+  color: var(--faint);
+}
 .entry-card .m {
   margin-top: .28rem;
   font-family: var(--sans);
