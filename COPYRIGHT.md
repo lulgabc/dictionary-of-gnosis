@@ -11,11 +11,11 @@ ISBN-13: 978 90 04 15231 1 · ISBN-10: 9004 15231 8.
 
 ## This edition
 
-This repository is a personal, non-commercial reading edition prepared from a copy of the book. It is not affiliated with, endorsed by or published by Brill.
+This edition is published with the authorization of the repository owner, who has confirmed that they hold the necessary rights to publish the dictionary text. It is not affiliated with, endorsed by or published by Brill.
 
-The source PDF is not included. The extracted text is included so that the reading edition works offline. Do not redistribute the text without permission from the rights holders.
+The source PDF is not included. The extracted text is included so that the reading edition works offline. The text remains the copyright of Brill and the individual contributors.
 
-If you are a rights holder and would like this edition changed or removed, please open an issue in the repository.
+If you are a rights holder and believe this publication is unauthorized, please open an issue in the repository and it will be reviewed promptly.
 
 ## Code
 

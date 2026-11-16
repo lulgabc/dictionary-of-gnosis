@@ -100,6 +100,6 @@ The extractor:
 
 The PDF's text layer uses legacy fonts for some Arabic, Greek and Hebrew transliterations. A few characters may therefore appear as unusual glyphs (for example `≠`, `™` or `£`) instead of the intended transliteration. They are preserved rather than silently guessed at. A small number of dropped spaces and hyphens at font changes were repaired where the intended reading is unambiguous; no wording was added or removed.
 
-The dictionary text remains the copyright of Koninklijke Brill NV and the individual contributors. This is a personal reading edition made from a copy of the book and is not intended for redistribution. The source PDF is not included in this repository. See [`COPYRIGHT.md`](COPYRIGHT.md).
+The dictionary text remains the copyright of Koninklijke Brill NV and the individual contributors. This edition is published with the authorization of the repository owner, who has confirmed the necessary rights. The source PDF is not included in this repository. See [`COPYRIGHT.md`](COPYRIGHT.md).
 
 The application code (HTML, CSS, JavaScript and Python) is released under the MIT licence.
