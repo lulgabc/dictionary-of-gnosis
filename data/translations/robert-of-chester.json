@@ -1,0 +1,24 @@
+{
+  "id": "robert-of-chester",
+  "title_zh": "切斯特的罗伯特",
+  "body": [
+    {
+      "i": 0,
+      "type": "body",
+      "zh": "罗伯特（Robert of Chester），有时也被称为凯顿的罗伯特（Robert of Ketton）或 Robertus Rettinensis，活跃于 1140 至 1150 年间。我们最初得知其人，是因为他与卡林西亚的赫尔曼（Hermann of Carinthia）一同受克吕尼修院院长可敬者彼得（Peter the Venerable）之聘，参与翻译《古兰经》，该译本于 1143 年完成。约自 1143 年起，他担任潘普洛纳（Pamplona）的总执事（archdeacon）。人们还知道他曾逗留于巴塞罗那（Barcelona）与图德拉（Tuleda），并且显然在 1147 至 1150 年间身在伦敦。"
+    },
+    {
+      "i": 1,
+      "type": "body",
+      "zh": "他于 1145 年在塞哥维亚（Segovia）完成的花拉子米（al-Khwàrizmì）《代数学》（Algebra）译本，不仅把“代数”一词、也把代数学的方法引入了拉丁西方。他依据花拉子米、扎尔卡利（al-Zarqàllu）与巴塔尼（al-Battànì）的历表，为伦敦子午线修订了数种天文表。卡林西亚的赫尔曼认定他就是巴塔尼《Opus astronomicum》的译者，而此书今已不存。另有两部论著也以他的名义流传，一部论通用星盘的构造，另一部论平盘星盘（planispheric astrolabe）的使用。他可能还负责修订了巴斯的阿德拉德（Adelard of Bath）所译欧几里得《几何原本》（Elements）。"
+    },
+    {
+      "i": 2,
+      "type": "body",
+      "zh": "罗伯特最为人知的，或许是他在阿拉伯炼金术（→ Alchemy）向拉丁西方传播的早期阶段所扮演的角色。阿拉伯语词 alkìmìyà± 可能早在 1141 年之前就由桑塔利亚的雨果（Hugo of Santalla）以 alkimia 的形式介绍给拉丁读者，其所译《翠玉录》（Tabula smaragdina）属于最早的重要文本之列。但第一部真正有分量的炼金术文本《Liber Morieni》的译本，通常被归于罗伯特名下。然而，这一归属也遭到了质疑，理由是该译本年代相对较晚（13 世纪），且此名所关联的似乎只是原译本后来的一种改编本。"
+    }
+  ],
+  "bib_note_zh": "书目保留原文。",
+  "translator": "AI-assisted draft",
+  "status": "complete"
+}

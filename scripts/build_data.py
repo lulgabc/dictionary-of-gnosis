@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Turn the extracted entries into the browser data file and resolve
 cross-references between entries."""
-import json, re, os, unicodedata
+import json, re, os, unicodedata, glob
 from difflib import SequenceMatcher
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,6 +25,47 @@ def slug(s):
     return re.sub(r"[^a-zA-Z0-9]+", "-", s).strip("-").lower()
 
 entries = data["entries"]
+by_id = {e["id"]: e for e in entries}
+
+# ------------------------------------------------------------------ translations
+TRANS_DIR = os.path.join(ROOT, "data", "translations")
+translations = {}
+translation_errors = []
+if os.path.isdir(TRANS_DIR):
+    for path in sorted(glob.glob(os.path.join(TRANS_DIR, "*.json"))):
+        try:
+            t = json.load(open(path, encoding="utf-8"))
+        except Exception as exc:
+            translation_errors.append((os.path.basename(path), "JSON: " + str(exc)))
+            continue
+        tid = t.get("id")
+        e = by_id.get(tid)
+        if not e:
+            translation_errors.append((os.path.basename(path), "unknown id " + str(tid)))
+            continue
+        items = t.get("body") or []
+        if len(items) != len(e["body"]):
+            translation_errors.append((tid, f"body length {len(items)} != {len(e['body'])}"))
+            continue
+        bad = False
+        for i, (item, src) in enumerate(zip(items, e["body"])):
+            if item.get("i") != i:
+                translation_errors.append((tid, f"index {item.get('i')} at {i}")); bad = True; break
+            if item.get("type") != src.get("type"):
+                translation_errors.append((tid, f"type mismatch at {i}")); bad = True; break
+            if not str(item.get("zh") or "").strip():
+                translation_errors.append((tid, f"empty zh at {i}")); bad = True; break
+        if bad:
+            continue
+        if not str(t.get("title_zh") or "").strip():
+            translation_errors.append((tid, "missing title_zh"))
+            continue
+        translations[tid] = t
+
+print("translations:", len(translations), "errors:", len(translation_errors))
+for x in translation_errors[:12]:
+    print("  TRANS", x)
+
 by_title = {}
 for e in entries:
     by_title.setdefault(norm(e["title"]), []).append(e)
@@ -105,17 +146,44 @@ for a,b in unresolved: print("  ", a, "->", b)
 print("group xrefs:", group_refs)
 
 # slim browser payload: drop duplicated concatenated text
+translated_paragraphs = 0
+total_paragraphs = 0
 slim = []
 for e in entries:
+    t = translations.get(e["id"])
+    status = "complete" if t else ("reference" if e.get("xref") else "pending")
+    zh_items = t["body"] if t else []
+    chars = len(re.findall(r"[\u4e00-\u9fff]", "".join(str(x.get("zh") or "") for x in zh_items)))
+    if not e.get("xref"):
+        total_paragraphs += len(e["body"])
+        if t:
+            translated_paragraphs += len(e["body"])
     slim.append({
         "id": e["id"], "title": e["title"], "heading": e["heading"],
+        "title_zh": t.get("title_zh") if t else None,
+        "translation_status": status,
+        "translated_chars": chars,
+        "bib_note_zh": t.get("bib_note_zh") if t else None,
         "letter": e["letter"], "group": e["group"], "group_id": e["group_id"],
         "page": e["page"], "author": e["author"],
-        "body": [{"type": p["type"], "text": p["text"], "page": p["page"]} for p in e["body"]],
+        "body": [
+            {"type": p["type"], "text": p["text"], "page": p["page"],
+             "zh": (zh_items[i]["zh"] if t and i < len(zh_items) else None)}
+            for i, p in enumerate(e["body"])
+        ],
         "bib": [{"type": p.get("type", "bib"), "text": p["text"]} for p in e["bib"]],
         "words": e["words"], "allwords": e["allwords"],
         "xref": e["xref"], "xref_id": e["xref_id"], "xref_group": e["xref_group"],
     })
+
+data["meta"]["translation"] = {
+    "total_entries": sum(1 for e in entries if not e.get("xref")),
+    "translated_entries": len(translations),
+    "total_paragraphs": total_paragraphs,
+    "translated_paragraphs": translated_paragraphs,
+    "translated_headwords": len(translations) + sum(1 for e in entries if e.get("xref")),
+    "total_headwords": len(entries),
+}
 
 payload = {"meta": data["meta"], "groups": groups, "entries": slim}
 json.dump(payload, open(os.path.join(ROOT, "data", "entries.min.json"), "w", encoding="utf-8"),

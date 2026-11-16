@@ -28,6 +28,12 @@ Features:
 - print styles for individual entries
 - no frameworks, no external fonts, no build step
 
+## Bilingual reading · 双语阅读
+
+Every entry page has a **双语** toggle in the top bar. In bilingual mode the text becomes a two-column reading edition: English on the left, Simplified Chinese on the right, **paragraph by paragraph**. On phones the two languages stack, each paragraph labelled `EN` / `中文`. Bibliographies remain in their original languages.
+
+Chinese is the first translation language. The full dictionary is about 972,000 English words, so translation is produced in validated batches rather than as one giant file. See [`translation/README.md`](translation/README.md) for the schema, style guide and batch workflow, and [`translation/PROGRESS.md`](translation/PROGRESS.md) for the current coverage.
+
 ## Motion studies
 
 The first entry with animation studies is **Boehme, Jacob** — a natural test case because the text contains a famous scene, a cosmological system and an alchemical triptych:

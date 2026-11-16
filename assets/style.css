@@ -398,6 +398,26 @@ button { color: inherit; }
 .icon-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .icon-btn svg { width: 19px; height: 19px; }
 .menu-btn { display: none; }
+.bi-btn {
+  flex: 0 0 auto;
+  white-space: nowrap;
+  height: 34px;
+  padding: 0 .7rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font-family: var(--sans);
+  font-size: .62rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  cursor: pointer;
+  transition: background .15s, color .15s, border-color .15s;
+}
+.bi-btn:hover { border-color: var(--gold); color: var(--ink); }
+.bi-btn[aria-pressed="true"] { background: var(--gold); border-color: var(--gold); color: var(--paper); }
+[data-theme="dark"] .bi-btn[aria-pressed="true"] { color: #17130e; }
+
 .theme-btn .icon-moon { display: none; }
 [data-theme="dark"] .theme-btn .icon-sun { display: none; }
 [data-theme="dark"] .theme-btn .icon-moon { display: block; }
@@ -502,6 +522,15 @@ button { color: inherit; }
 .btn.primary { background: var(--ink); color: var(--paper); border-color: var(--ink); }
 .btn.primary:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
 .btn svg { width: 15px; height: 15px; }
+
+.hero-zh {
+  margin: 1rem 0 0;
+  font-family: "Songti SC", "Source Han Serif SC", "Noto Serif CJK SC", "STSong", serif;
+  font-size: .78rem;
+  color: var(--muted);
+}
+.hero-zh a { color: var(--accent); text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--accent) 35%, transparent); }
+.hero-zh a:hover { border-bottom-color: var(--accent); }
 
 .alpha-grid {
   display: grid;
@@ -608,6 +637,9 @@ button { color: inherit; }
   margin: 0 auto;
   animation: rise .32s ease both;
 }
+.entry.bilingual { max-width: 1080px; }
+.entry.bilingual .bib,
+.entry.bilingual .author { max-width: var(--reading-w); }
 @keyframes rise {
   from { opacity: 0; transform: translateY(7px); }
   to { opacity: 1; transform: none; }
@@ -661,6 +693,15 @@ button { color: inherit; }
   letter-spacing: -.022em;
   text-wrap: balance;
 }
+.entry-title-zh {
+  margin: .45rem 0 0;
+  font-family: "Songti SC", "Source Han Serif SC", "Noto Serif CJK SC", "STSong", "SimSun", serif;
+  font-size: 1.2rem;
+  line-height: 1.5;
+  color: var(--muted);
+  letter-spacing: .02em;
+}
+
 .entry-sub {
   margin: .75rem 0 0;
   font-size: .92rem;
@@ -726,6 +767,126 @@ button { color: inherit; }
   font-size: 3.3em;
   line-height: .78;
   color: var(--accent);
+}
+
+/* ---------- bilingual reading ---------- */
+
+.bi-note {
+  margin: 0 0 1.3rem;
+  padding-bottom: .55rem;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--sans);
+  font-size: .58rem;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+.bi-note span {
+  margin-left: .45rem;
+  padding: .1rem .35rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: .5rem;
+  letter-spacing: .06em;
+  color: var(--muted);
+}
+.bi-grid { display: block; }
+.bi-pair {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 2.6rem;
+  padding: 0 0 1.15rem;
+  margin: 0 0 1.15rem;
+  border-bottom: 1px solid var(--line);
+}
+.bi-pair:last-child { border-bottom: 0; margin-bottom: 0; }
+.prose .bi-pair .bi-en,
+.prose .bi-pair .bi-zh {
+  margin: 0;
+  text-indent: 0;
+  font-size: .98rem;
+  line-height: 1.78;
+}
+.prose .bi-pair h3 { margin: 0; }
+.bi-zh {
+  font-family: "Songti SC", "Source Han Serif SC", "Noto Serif CJK SC", "STSong", "SimSun", serif;
+  line-height: 1.92;
+  color: var(--ink);
+}
+.bi-en.entry-outline { margin: 0; }
+.bi-pair-outline {
+  padding: .85rem 1rem;
+  margin-bottom: 1.4rem;
+  background: var(--gold-soft);
+  border-left: 2px solid var(--gold);
+  border-bottom: 0;
+}
+.prose .bi-pair-outline .bi-en,
+.prose .bi-pair-outline .bi-zh {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: .72rem;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+.bi-pair-subhead { padding-top: .6rem; }
+.bi-pair-subhead .bi-en,
+.bi-pair-subhead .bi-zh {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: .66rem;
+  font-weight: 600;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  line-height: 1.5;
+}
+.bi-pair-subhead .bi-zh {
+  font-family: "Songti SC", "Source Han Serif SC", "Noto Serif CJK SC", "STSong", serif;
+  letter-spacing: .08em;
+  text-transform: none;
+}
+.bi-missing { color: var(--faint); font-style: italic; }
+.bi-notice {
+  margin: 0 0 1.5rem;
+  padding: .85rem 1rem;
+  border-left: 3px solid var(--gold);
+  background: var(--gold-soft);
+  font-family: var(--sans);
+  font-size: .76rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+.bi-notice strong { color: var(--ink); }
+.bib-note {
+  margin: 0 0 .8rem;
+  font-family: var(--sans);
+  font-size: .6rem;
+  letter-spacing: .04em;
+  color: var(--faint);
+}
+.pill-zh { border-color: var(--gold); color: var(--gold); background: var(--gold-soft); }
+.pill-pending { border-color: var(--line); color: var(--faint); background: transparent; }
+.xref-en {
+  display: block;
+  margin-top: .3rem;
+  font-family: var(--serif);
+  font-size: .8rem;
+  color: var(--muted);
+}
+.e-zh {
+  display: block;
+  margin-top: .12rem;
+  font-family: "Songti SC", "Source Han Serif SC", "Noto Serif CJK SC", "STSong", serif;
+  font-size: .66rem;
+  line-height: 1.35;
+  color: var(--faint);
+}
+.result-zh {
+  margin-left: .55rem;
+  font-family: "Songti SC", "Source Han Serif SC", "Noto Serif CJK SC", "STSong", serif;
+  font-size: .78rem;
+  color: var(--muted);
 }
 
 .bib {
@@ -1080,6 +1241,21 @@ body.drawer-open { overflow: hidden; }
   .stats { gap: 1rem 1.6rem; }
   .prose { font-size: 1rem; }
   .prose p + p { text-indent: 0; }
+  .bi-pair { grid-template-columns: 1fr; gap: .5rem; padding-bottom: 1.4rem; }
+  .bi-en, .bi-zh { font-size: 1rem; }
+  .bi-en::before, .bi-zh::before {
+    display: block;
+    margin-bottom: .2rem;
+    font-family: var(--sans);
+    font-size: .5rem;
+    font-weight: 600;
+    letter-spacing: .14em;
+    color: var(--faint);
+  }
+  .bi-en::before { content: "EN"; }
+  .bi-zh::before { content: "中文"; }
+  .bi-pair-subhead .bi-en::before, .bi-pair-subhead .bi-zh::before { display: none; }
+  .bi-en.dropcap::first-letter { float: none; font-size: inherit; line-height: inherit; color: inherit; padding: 0; }
   .entry-nav { display: block; }
   .entry-nav a { max-width: 100%; margin-bottom: .9rem; }
   .entry-nav .next { text-align: left; }

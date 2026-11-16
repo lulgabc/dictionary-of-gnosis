@@ -37,6 +37,7 @@
   const scrim = document.getElementById("scrim");
   const menuBtn = document.getElementById("menuBtn");
   const themeBtn = document.getElementById("themeBtn");
+  const biBtn = document.getElementById("biBtn");
   const randomBtn = document.getElementById("randomBtn");
   const aboutBtn = document.getElementById("aboutBtn");
   const aboutModal = document.getElementById("aboutModal");
@@ -52,6 +53,9 @@
     activeId: null,
     query: "",
     lastFocus: null,
+    bilingual: (() => {
+      try { return localStorage.getItem("dogwe-bilingual") === "1"; } catch (e) { return false; }
+    })(),
   };
 
   /* ---------- small utilities ---------- */
@@ -69,19 +73,25 @@
       .normalize("NFKD")
       .replace(/[\u0300-\u036f]/g, "")
       .toLowerCase()
-      .replace(/[^a-z0-9]+/g, " ")
+      .replace(/[^\u4e00-\u9fff a-z0-9]+/g, " ")
       .trim();
   }
   function textOf(e) {
     if (e._plain == null) {
+      const zh = (e.title_zh || "") + " " + e.body.map(p => p.zh || "").join("\n\n");
       e._plain = e.body.map(p => p.text).join("\n\n") +
-        (e.bib.length ? "\n\n" + e.bib.map(p => p.text).join("\n\n") : "");
+        (e.bib.length ? "\n\n" + e.bib.map(p => p.text).join("\n\n") : "") +
+        (zh.trim() ? "\n\n" + zh : "");
     }
     return e._plain;
   }
   function haystack(e) {
     if (e._hay == null) {
-      e._hay = normKey(e.title + " " + e.heading + " " + (e.xref || "") + " " + textOf(e));
+      e._hay = normKey(
+        e.title + " " + (e.title_zh || "") + " " + e.heading + " " +
+        e.body.map(p => (p.text || "") + " " + (p.zh || "")).join(" ") + " " +
+        (e.xref || "") + " " + textOf(e)
+      );
     }
     return e._hay;
   }
@@ -108,6 +118,7 @@
   }
   for (const e of entries) {
     addTarget(normKey(e.title), { kind: "entry", id: e.id });
+    if (e.title_zh) addTarget(normKey(e.title_zh), { kind: "entry", id: e.id });
     if (e.xref_id) addTarget(normKey(e.xref), { kind: "entry", id: e.xref_id });
     if (e.xref_group) addTarget(normKey(e.xref), { kind: "group", id: e.xref_group });
   }
@@ -225,7 +236,7 @@
       if (!e.group) lastGroup = null; else lastGroup = e.group;
       html += `<button class="entry-item${e.xref ? " is-xref" : ""}${e.group ? " is-child" : ""}${e.id === state.activeId ? " is-active" : ""}" ` +
         `type="button" data-entry-link="${escapeHtml(e.id)}"${e.id === state.activeId ? ' aria-current="page"' : ""}>` +
-        `<span class="e-title">${escapeHtml(e.title)}</span>${e.xref ? '<span class="e-arrow">→</span>' : ""}</button>`;
+        `<span class="e-title">${escapeHtml(e.title)}${state.bilingual && e.title_zh ? `<span class="e-zh" lang="zh-Hans">${escapeHtml(e.title_zh)}</span>` : ""}</span>${e.xref ? '<span class="e-arrow">→</span>' : ""}</button>`;
     }
     entryList.innerHTML = html;
     indexCount.textContent = `${filtered.length}`;
@@ -294,6 +305,7 @@
             <a class="btn" href="motion/pilot/">Motion pilot</a>
             <button class="btn" type="button" id="heroAbout">About the text</button>
           </div>
+          ${meta.translation ? `<p class="hero-zh">中文翻译进行中：${meta.translation.translated_entries} / ${meta.translation.total_entries} 条正文词条 · <a href="#/entry/astrology-i-introduction">查看双语示例 →</a></p>` : ""}
         </section>
 
         <div class="section-head"><h2>Alphabetical index</h2><span class="hint">${entries.length} headwords</span></div>
@@ -304,7 +316,7 @@
 
         <div class="colophon">
           <span>Digitised from the 2006 Brill edition · ${meta.source_pages.toLocaleString()} pages</span>
-          <span>${meta.section_count} entries · ${meta.crossref_count} see-references · ${meta.word_count.toLocaleString()} words</span>
+          <span>${meta.section_count} entries · ${meta.crossref_count} see-references · ${meta.word_count.toLocaleString()} words${meta.translation ? ` · 中文 ${meta.translation.translated_entries}/${meta.translation.total_entries}` : ""}</span>
         </div>
       </div>`;
 
@@ -383,6 +395,48 @@
     return hits >= 3;
   }
 
+  function hasTranslation(e) {
+    return e.translation_status === "complete" &&
+      Array.isArray(e.body) && e.body.some(p => p.zh);
+  }
+
+  function normalBodyHtml(e) {
+    let html = "";
+    e.body.forEach((p, i) => {
+      if (p.type === "subhead") {
+        html += `<h3>${escapeHtml(p.text)}</h3>`;
+      } else {
+        let cls = "";
+        if (i === 0) cls = looksLikeOutline(p.text) ? "entry-outline" : "dropcap";
+        html += `<p${cls ? ` class="${cls}"` : ""}>${linkify(p.text)}</p>`;
+      }
+    });
+    return html || `<p class="empty">No text was extracted for this entry.</p>`;
+  }
+
+  function bilingualBodyHtml(e) {
+    let html = `<div class="bi-grid">`;
+    e.body.forEach((p, i) => {
+      const zh = p.zh || "";
+      if (p.type === "subhead") {
+        html += `<div class="bi-pair bi-pair-subhead">
+          <h3 class="bi-en">${escapeHtml(p.text)}</h3>
+          <h3 class="bi-zh" lang="zh-Hans">${zh ? escapeHtml(zh) : '<span class="bi-missing">译文待补</span>'}</h3>
+        </div>`;
+      } else {
+        const isOutline = i === 0 && looksLikeOutline(p.text);
+        let cls = "";
+        if (i === 0 && !isOutline) cls = "dropcap";
+        html += `<div class="bi-pair${isOutline ? " bi-pair-outline" : ""}">
+          <p class="bi-en${cls ? " " + cls : ""}">${linkify(p.text)}</p>
+          <p class="bi-zh" lang="zh-Hans">${zh ? linkify(zh) : '<span class="bi-missing">译文待补</span>'}</p>
+        </div>`;
+      }
+    });
+    html += `</div>`;
+    return `<p class="bi-note">左：英文原文 · 右：中文译文 <span>AI 辅助初稿</span></p>` + html;
+  }
+
   function renderEntry(id) {
     const e = entryById.get(id);
     if (!e) {
@@ -403,34 +457,42 @@
     if (!e.xref) metaBits.push(`<span><b>Words</b> ${e.allwords.toLocaleString()}</span>`);
     metaBits.push(`<span><b>Letter</b> ${escapeHtml(e.letter)}</span>`);
     if (e.group) metaBits.push(`<span><b>Section</b> ${escapeHtml(e.group)}</span>`);
+    if (!e.xref) {
+      metaBits.push(`<span><b>中文</b> ${e.translation_status === "complete" ? "已译" : "待补"}</span>`);
+      if (e.translated_chars) metaBits.push(`<span><b>中文字数</b> ${e.translated_chars.toLocaleString()}</span>`);
+    }
 
+    const hasZh = hasTranslation(e);
+    const showBi = state.bilingual && hasZh && !e.xref;
     let bodyHtml = "";
     if (e.xref) {
       const target = e.xref_id ? entryById.get(e.xref_id) : null;
       const targetGroup = e.xref_group ? groupById.get(e.xref_group) : null;
-      bodyHtml = `<div class="xref-card"><span class="xref-label">See reference</span>` +
-        (target
-          ? `<a href="#/entry/${encodeURIComponent(target.id)}" data-entry="${escapeHtml(target.id)}">${escapeHtml(target.title)}</a>`
-          : targetGroup
-            ? `<a href="#/group/${encodeURIComponent(targetGroup.id)}" data-group="${escapeHtml(targetGroup.id)}">${escapeHtml(targetGroup.name)}</a>`
-            : `<span>${escapeHtml(e.xref)}</span>`) +
-        `</div>`;
+      const label = state.bilingual ? "参见" : "See reference";
+      const targetHtml = target
+        ? `<a href="#/entry/${encodeURIComponent(target.id)}" data-entry="${escapeHtml(target.id)}">${
+            state.bilingual && target.title_zh ? escapeHtml(target.title_zh) : escapeHtml(target.title)
+          }</a>${state.bilingual && target.title_zh ? `<span class="xref-en">${escapeHtml(target.title)}</span>` : ""}`
+        : targetGroup
+          ? `<a href="#/group/${encodeURIComponent(targetGroup.id)}" data-group="${escapeHtml(targetGroup.id)}">${escapeHtml(targetGroup.name)}</a>`
+          : `<span>${escapeHtml(e.xref)}</span>`;
+      bodyHtml = `<div class="xref-card"><span class="xref-label">${label}</span>${targetHtml}</div>`;
+    } else if (showBi) {
+      bodyHtml = bilingualBodyHtml(e);
     } else {
-      e.body.forEach((p, i) => {
-        if (p.type === "subhead") {
-          bodyHtml += `<h3>${escapeHtml(p.text)}</h3>`;
-        } else {
-          let cls = "";
-          if (i === 0) cls = looksLikeOutline(p.text) ? "entry-outline" : "dropcap";
-          bodyHtml += `<p${cls ? ` class="${cls}"` : ""}>${linkify(p.text)}</p>`;
-        }
-      });
-      if (!bodyHtml) bodyHtml = `<p class="empty">No text was extracted for this entry.</p>`;
+      if (state.bilingual && !hasZh) {
+        const tr = meta.translation || {};
+        bodyHtml += `<div class="bi-notice"><strong>本词条中文译文尚未加入。</strong>当前显示英文原文。${
+          tr.total_entries ? ` 中文翻译进度：${tr.translated_entries} / ${tr.total_entries} 条正文词条。` : ""
+        }</div>`;
+      }
+      bodyHtml += normalBodyHtml(e);
     }
 
     let bibHtml = "";
     if (e.bib && e.bib.length) {
       bibHtml = `<section class="bib"><h2>Bibliography</h2>` +
+        (state.bilingual && hasZh ? `<p class="bib-note">${escapeHtml(e.bib_note_zh || "书目保留原文。")}</p>` : "") +
         e.bib.map(p => p.type === "bib-subhead"
           ? `<h3 class="bib-subhead">${escapeHtml(p.text)}</h3>`
           : `<p>${linkify(p.text)}</p>`).join("") + `</section>`;
@@ -447,14 +509,16 @@
     </footer>`;
 
     main.innerHTML = `
-      <article class="entry">
+      <article class="entry${state.bilingual && hasZh && !e.xref ? " bilingual" : ""}">
         <header class="entry-head">
           <div class="entry-kicker">
             ${e.group ? `<span class="pill">${escapeHtml(e.group)}</span>` : ""}
             <span>${e.xref ? "See reference" : "Dictionary entry"}</span>
+            ${e.translation_status === "complete" ? `<span class="pill pill-zh">中文</span>` : (state.bilingual && !e.xref ? `<span class="pill pill-pending">中文待补</span>` : "")}
             ${MOTION_LINKS[e.id] ? `<a class="motion-link" href="${MOTION_LINKS[e.id][0]}">${MOTION_LINKS[e.id][1]} <span>→</span></a>` : ""}
           </div>
           <h1>${escapeHtml(e.title)}</h1>
+          ${state.bilingual && e.title_zh ? `<p class="entry-title-zh" lang="zh-Hans">${escapeHtml(e.title_zh)}</p>` : ""}
           ${sub ? `<p class="entry-sub">${escapeHtml(sub)}</p>` : ""}
           <div class="entry-meta">${metaBits.join("")}</div>
         </header>
@@ -544,13 +608,18 @@
     results.sort((a, b) => b.score - a.score || a.e.title.localeCompare(b.e.title));
 
     setCrumbs([{ label: "Dictionary", href: "#/" }, { label: "Search", current: true }]);
-    const summary = results.length
+    const isCJK = /[\u4e00-\u9fff]/.test(q);
+    const coverage = isCJK && meta.translation
+      ? ` · 中文检索覆盖 ${meta.translation.translated_entries} / ${meta.translation.total_entries} 条已译词条`
+      : "";
+    const summary = (results.length
       ? `${results.length} result${results.length === 1 ? "" : "s"} for “${escapeHtml(q)}”`
-      : `No results for “${escapeHtml(q)}”`;
+      : `No results for “${escapeHtml(q)}”`) + coverage;
 
     const list = results.slice(0, 150).map(({ e }) => `
       <li class="result">
         <a class="title" href="#/entry/${encodeURIComponent(e.id)}">${escapeHtml(e.title)}</a>
+        ${e.title_zh ? `<span class="result-zh" lang="zh-Hans">${escapeHtml(e.title_zh)}</span>` : ""}
         <span class="kind">${e.xref ? "see reference" : e.group ? escapeHtml(e.group) : "entry"}</span>
         <p class="snippet">${plainSnippet(e, q, rawTerms)}</p>
         <div class="more">${e.xref ? "Cross-reference" : `${e.allwords.toLocaleString()} words · p. ${e.page}`}</div>
@@ -578,6 +647,14 @@
     const has = searchInput.value.length > 0;
     searchWrap.classList.toggle("has-value", has);
     clearSearchBtn.hidden = !has;
+  }
+
+  /* ---------- bilingual ---------- */
+
+  function applyBiButton() {
+    if (!biBtn) return;
+    biBtn.setAttribute("aria-pressed", state.bilingual ? "true" : "false");
+    biBtn.setAttribute("aria-label", state.bilingual ? "Switch back to original only" : "Show bilingual reading");
   }
 
   /* ---------- theme ---------- */
@@ -675,6 +752,22 @@
     applyTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark");
   });
 
+  if (biBtn) {
+    biBtn.addEventListener("click", () => {
+      state.bilingual = !state.bilingual;
+      try { localStorage.setItem("dogwe-bilingual", state.bilingual ? "1" : "0"); } catch (e) {}
+      applyBiButton();
+      renderEntryList();
+      const raw = location.hash.replace(/^#\/?/, "");
+      const y = window.scrollY;
+      if (raw.startsWith("entry/") && state.activeId) {
+        renderEntry(state.activeId);
+        window.scrollTo({ top: y, behavior: "auto" });
+      } else if (state.query) runSearch(state.query);
+      else route();
+    });
+  }
+
   randomBtn.addEventListener("click", openRandom);
   aboutBtn.addEventListener("click", openAbout);
   aboutClose.addEventListener("click", closeAbout);
@@ -751,6 +844,7 @@
 
   function boot() {
     applyTheme(initialTheme());
+    applyBiButton();
     renderAlphaRail();
     renderEntryList();
 
@@ -760,7 +854,8 @@
       <div><b>${meta.crossref_count}</b><span>See-refs</span></div>
       <div><b>${meta.source_pages.toLocaleString()}</b><span>Pages</span></div>`;
     aboutCoverage.textContent =
-      `Every headword in the printed List of Entries is present (${meta.section_count} of ${meta.section_count}), together with ${meta.crossref_count} see-references printed in the body of the dictionary — ${meta.entry_count} headwords in all. The text covers all ${meta.source_pages.toLocaleString()} pages of the dictionary.`;
+      `Every headword in the printed List of Entries is present (${meta.section_count} of ${meta.section_count}), together with ${meta.crossref_count} see-references printed in the body of the dictionary — ${meta.entry_count} headwords in all. The text covers all ${meta.source_pages.toLocaleString()} pages of the dictionary.` +
+      (meta.translation ? ` 中文翻译进度：${meta.translation.translated_entries} / ${meta.translation.total_entries} 条正文词条（${meta.translation.translated_paragraphs} / ${meta.translation.total_paragraphs} 段）。` : "");
 
     route();
     if (!location.hash) history.replaceState(null, "", "#/");
