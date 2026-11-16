@@ -256,7 +256,7 @@
       let lastGroup = null;
       for (const e of list) {
         if (e.group && e.group !== lastGroup) {
-          toc += `<li class="toc-group">${escapeHtml(e.group)}</li>`;
+          toc += `<li class="toc-group"><a href="#/group/${encodeURIComponent(e.group_id)}">${escapeHtml(e.group)}</a></li>`;
         }
         if (!e.group) lastGroup = null; else lastGroup = e.group;
         toc += `<li><a class="${e.xref ? "is-xref" : ""}" href="#/entry/${encodeURIComponent(e.id)}">${escapeHtml(e.title)}${e.xref ? " →" : ""}</a></li>`;
