@@ -305,7 +305,7 @@
             <a class="btn" href="motion/pilot/">Motion pilot</a>
             <button class="btn" type="button" id="heroAbout">About the text</button>
           </div>
-          ${meta.translation ? `<p class="hero-zh">中文翻译进行中：${meta.translation.translated_entries} / ${meta.translation.total_entries} 条正文词条 · <a href="#/entry/astrology-i-introduction">查看双语示例 →</a></p>` : ""}
+          ${meta.translation ? `<p class="hero-zh">${meta.translation.translated_entries >= meta.translation.total_entries ? "中文翻译已完成" : "中文翻译进行中"}：${meta.translation.translated_entries} / ${meta.translation.total_entries} 条正文词条 · <a href="#/entry/astrology-i-introduction">${meta.translation.translated_entries >= meta.translation.total_entries ? "开始阅读双语对照" : "查看双语示例"} →</a></p>` : ""}
         </section>
 
         <div class="section-head"><h2>Alphabetical index</h2><span class="hint">${entries.length} headwords</span></div>

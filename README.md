@@ -32,7 +32,9 @@ Features:
 
 Every entry page has a **双语** toggle in the top bar. In bilingual mode the text becomes a two-column reading edition: English on the left, Simplified Chinese on the right, **paragraph by paragraph**. On phones the two languages stack, each paragraph labelled `EN` / `中文`. Bibliographies remain in their original languages.
 
-Chinese is the first translation language. The full dictionary is about 972,000 English words, so translation is produced in validated batches rather than as one giant file. See [`translation/README.md`](translation/README.md) for the schema, style guide and batch workflow, and [`translation/PROGRESS.md`](translation/PROGRESS.md) for the current coverage.
+Chinese is the translation language, and the translation is **complete**: all **344 / 344** full entries, **5,336 / 5,336** paragraphs and **1,383,515** Chinese characters, validated for paragraph order, item type and cross-reference parity. The 76 see-reference headwords remain English-only by design and are rendered as “参见” in the bilingual interface.
+
+The translation was produced in validated batches rather than as one giant file. See [`translation/README.md`](translation/README.md) for the schema, style guide and batch workflow, and [`translation/PROGRESS.md`](translation/PROGRESS.md) for the full per-entry table.
 
 ## Motion studies
 

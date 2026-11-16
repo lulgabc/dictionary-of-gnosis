@@ -81,6 +81,13 @@ if errors:
         report.append(f"- `{tid}`: {msg}")
 report.append("\n## Remaining\n")
 missing = [e["title"] for e in entries.values() if e["id"] not in {r["id"] for r in rows}]
-report.append(f"{len(missing)} entries still to translate. The next batch should prioritise the most-viewed entries and the motion pilot.\n")
+if missing:
+    report.append(f"{len(missing)} entries still to translate. The next batch should prioritise the most-viewed entries and the motion pilot.\n")
+else:
+    report.append(
+        "0 entries remain. All 344 full entries are translated and paragraph-aligned; "
+        f"{translated_paragraphs:,} of {total_paragraphs:,} paragraphs and {translated_cjk:,} Chinese characters. "
+        "The 76 cross-reference headwords remain English-only by design and are rendered as “参见” in the bilingual interface.\n"
+    )
 open(OUT, "w", encoding="utf-8").write("\n".join(report))
 print("wrote", OUT)
