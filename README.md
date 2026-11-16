@@ -2,6 +2,8 @@
 
 A complete, self-contained reading edition of the *Dictionary of Gnosis & Western Esotericism*, edited by **Wouter J. Hanegraaff** in collaboration with Antoine Faivre, Roelof van den Broek and Jean-Pierre Brach (Brill, Leiden & Boston, 2006).
 
+**Live edition:** <https://lulgabc.github.io/dictionary-of-gnosis/>
+
 The site reproduces the dictionary text itself: every headword, every explanation, every bibliography and every author credit, from page 1 to page 1,186.
 
 ## What is included
