@@ -508,7 +508,9 @@
       return;
     }
     const qn = normKey(q);
-    const terms = qn.split(" ").filter(t => t.length > 0);
+    let terms = qn.split(" ").filter(t => t.length > 0);
+    if (terms.length > 1) terms = terms.filter(t => t.length > 1);
+    if (!terms.length) terms = [qn];
     const rawTerms = q.split(/\s+/).filter(t => t.length > 1);
     const results = [];
 
