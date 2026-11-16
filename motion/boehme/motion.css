@@ -250,7 +250,10 @@ button { font: inherit; color: inherit; }
 }
 .stage.is-paused *,
 .stage.is-paused *::before,
-.stage.is-paused *::after {
+.stage.is-paused *::after,
+.stage.is-offscreen *,
+.stage.is-offscreen *::before,
+.stage.is-offscreen *::after {
   animation-play-state: paused !important;
 }
 .stage-tools {

@@ -78,6 +78,7 @@
     let time = 0;
     let last = performance.now();
     let userPaused = reduceMotion;
+    let visible = true;
     let flash = 0;
     let hoverX = 0, hoverY = 0;
     let highlight = -1;
@@ -329,7 +330,7 @@
     function loop(now) {
       const dt = Math.min((now - last) / 1000, .05);
       last = now;
-      if (!userPaused) {
+      if (!userPaused && visible) {
         time += dt;
         if (flash > 0) flash = Math.max(0, flash - dt * .9);
         draw(time);
@@ -365,6 +366,11 @@
     });
     canvas.addEventListener("pointerleave", () => { hoverX = 0; hoverY = 0; });
     canvas.addEventListener("click", () => { flash = 1; });
+
+    stage.addEventListener("stagevis", (ev) => {
+      visible = ev.detail;
+      if (visible) draw(time);
+    });
 
     draw(0);
     requestAnimationFrame(loop);
@@ -692,6 +698,7 @@
     let time = 0;
     let last = performance.now();
     let running = !reduceMotion;
+    let visible = true;
     let pulse = 0;
 
     canvas.addEventListener("pointermove", (ev) => {
@@ -723,7 +730,7 @@
     function loop(now) {
       const dt = Math.min((now - last) / 1000, 0.05);
       last = now;
-      if (running) {
+      if (running && visible) {
         time += dt;
         pulse = Math.max(0, pulse - dt * 1.4);
 
@@ -798,6 +805,10 @@
 
     window.addEventListener("resize", resize);
     if (window.ResizeObserver) new ResizeObserver(resize).observe(stage);
+    stage.addEventListener("stagevis", (ev) => {
+      visible = ev.detail;
+      if (visible) render();
+    });
 
     // legend highlight cycling
     let threeHighlight = -1;
@@ -904,6 +915,7 @@
     let W = 1, H = 1, cx = 0, cy = 0, maxR = 100;
     let time = 0;
     let running = !reduceMotion;
+    let visible = true;
     let pulse = 0;
     let pointer = { x: 0, y: 0, active: false };
     let lastW = 0, lastH = 0;
@@ -1125,6 +1137,15 @@
     canvas.addEventListener("pointerleave", () => { pointer.active = false; });
     canvas.addEventListener("pointerdown", burst);
 
+    const syncTicker = () => {
+      if (visible && running) app.ticker.start();
+      else app.ticker.stop();
+    };
+    stage.addEventListener("stagevis", (ev) => {
+      visible = ev.detail;
+      syncTicker();
+    });
+
     setupControls(stage, {
       replay() {
         time = 0;
@@ -1133,16 +1154,15 @@
         bursts.length = 0;
         burstLayer.removeChildren();
         running = true;
-        app.ticker.start();
         stage.classList.remove("is-paused");
         const pause = $('[data-act="pause"]', stage);
         if (pause) pause.textContent = "Pause";
+        syncTicker();
         burst();
       },
       toggle(paused) {
         running = !paused;
-        if (paused) app.ticker.stop();
-        else app.ticker.start();
+        syncTicker();
       },
     });
 
@@ -1153,10 +1173,8 @@
     buildSun();
     app.renderer.render(app.stage);
     app.ticker.add(update);
-    if (reduceMotion) {
-      running = false;
-      app.ticker.stop();
-    }
+    if (reduceMotion) running = false;
+    syncTicker();
   }
 
   /* ------------------------------------------------------------
@@ -1167,4 +1185,14 @@
   initTriptych();
   initThree();
   initPixi();
+
+  if ("IntersectionObserver" in window) {
+    const stageObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        entry.target.classList.toggle("is-offscreen", !entry.isIntersecting);
+        entry.target.dispatchEvent(new CustomEvent("stagevis", { detail: entry.isIntersecting }));
+      });
+    }, { threshold: 0.02 });
+    $$(".stage").forEach((stage) => stageObserver.observe(stage));
+  }
 })();
