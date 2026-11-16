@@ -348,6 +348,8 @@ button { color: inherit; }
   -webkit-appearance: none;
 }
 #searchInput::placeholder { color: var(--faint); }
+#searchInput::-webkit-search-cancel-button,
+#searchInput::-webkit-search-decoration { -webkit-appearance: none; appearance: none; }
 #searchInput:focus {
   border-color: var(--accent);
   box-shadow: 0 0 0 3px var(--accent-soft);
