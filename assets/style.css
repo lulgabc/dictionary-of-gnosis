@@ -937,6 +937,8 @@ button { color: inherit; }
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
+body.drawer-open { overflow: hidden; }
+
 .scrim {
   position: fixed;
   inset: 0;

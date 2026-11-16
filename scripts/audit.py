@@ -7,7 +7,10 @@ PDF itself, then writes AUDIT.md.
 import fitz, json, os, re, unicodedata, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-PDF = os.path.expanduser("~/Downloads/Dictionary of Gnosis  Western Esotericism (Wouter J. Hanegraaff) (z-library.sk, 1lib.sk, z-lib.sk).pdf")
+PDF = os.environ.get(
+    "DOGWE_PDF",
+    os.path.expanduser("~/Downloads/Dictionary of Gnosis  Western Esotericism (Wouter J. Hanegraaff) (z-library.sk, 1lib.sk, z-lib.sk).pdf"),
+)
 DATA = os.path.join(ROOT, "data", "entries.min.json")
 OUT = os.path.join(ROOT, "AUDIT.md")
 

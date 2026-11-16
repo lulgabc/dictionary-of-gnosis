@@ -12,7 +12,10 @@ import fitz, re, json, unicodedata, os, sys
 from difflib import SequenceMatcher
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-PDF = os.path.expanduser("~/Downloads/Dictionary of Gnosis  Western Esotericism (Wouter J. Hanegraaff) (z-library.sk, 1lib.sk, z-lib.sk).pdf")
+PDF = os.environ.get(
+    "DOGWE_PDF",
+    os.path.expanduser("~/Downloads/Dictionary of Gnosis  Western Esotericism (Wouter J. Hanegraaff) (z-library.sk, 1lib.sk, z-lib.sk).pdf"),
+)
 OUT = os.path.join(ROOT, "data")
 
 doc = fitz.open(PDF)

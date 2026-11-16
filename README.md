@@ -75,6 +75,8 @@ Requirements: Python 3, [PyMuPDF](https://pymupdf.readthedocs.io/) (`python3 -c 
 ~/Downloads/Dictionary of Gnosis  Western Esotericism (Wouter J. Hanegraaff) (z-library.sk, 1lib.sk, z-lib.sk).pdf
 ```
 
+Set `DOGWE_PDF=/path/to/the.pdf` to override that location.
+
 Then:
 
 ```sh

@@ -386,11 +386,9 @@
     setCrumbs(crumbParts);
 
     const sub = subtitleFor(e);
-    const metaBits = [
-      `<span><b>Page</b> ${e.page}</span>`,
-      `<span><b>Words</b> ${e.allwords.toLocaleString()}</span>`,
-      `<span><b>Letter</b> ${escapeHtml(e.letter)}</span>`,
-    ];
+    const metaBits = [`<span><b>Page</b> ${e.page}</span>`];
+    if (!e.xref) metaBits.push(`<span><b>Words</b> ${e.allwords.toLocaleString()}</span>`);
+    metaBits.push(`<span><b>Letter</b> ${escapeHtml(e.letter)}</span>`);
     if (e.group) metaBits.push(`<span><b>Section</b> ${escapeHtml(e.group)}</span>`);
 
     let bodyHtml = "";
